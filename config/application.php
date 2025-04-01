@@ -1,6 +1,7 @@
 <?php
 
 use function Env\env;
+
 Env\Env::$options = 31;
 $root_dir = dirname(__FILE__);
 
@@ -26,9 +27,10 @@ define('WP_DISABLE_FULLSCREEN_EDITOR', false);
 define('APP_THEME_DOMAIN', 'mariana-erato');
 define('APP_THEME_DIR', trailingslashit(get_stylesheet_directory()));
 define('APP_THEME_URL', trailingslashit(get_stylesheet_directory_uri()));
-define('APP_PATH', trailingslashit(APP_THEME_DIR.'app'));
+define('APP_PATH', trailingslashit(APP_THEME_DIR . 'app'));
 define('APP_RESOURCES_PATH', APP_THEME_DIR . 'resources/views');
-define('APP_TEMPLATES', array());
+define('APP_TEMPLATES', []);
+define('APP_REMOVE_ADMIN_MENUS', env('APP_REMOVE_ADMIN_MENUS') ?? false);
 
 /**
  * Email Config Constants

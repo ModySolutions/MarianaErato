@@ -41,7 +41,8 @@ class Security
         remove_action('wp_delete_temp_updater_backups', 'wp_delete_all_temp_backups');
     }
 
-    public function admin_menu() : void {
+    public function admin_menu(): void
+    {
         remove_action('admin_notices', 'update_nag', 3);
     }
 

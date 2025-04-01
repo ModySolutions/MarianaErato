@@ -137,7 +137,8 @@ class Theme
         return 'low';
     }
 
-    public function body_class(array $classes) : array {
+    public function body_class(array $classes): array
+    {
         if (is_page()) {
             $page = get_post(get_the_ID());
             $slug = $page->post_name;
@@ -148,7 +149,6 @@ class Theme
 
     private function _scripts(): array
     {
-        $app = include(APP_THEME_DIR . '/dist/app.asset.php');
         return [
             [
                 'handle' => 'app',
@@ -157,27 +157,11 @@ class Theme
                 'deps' => ['jquery'],
                 'args' => ['in_footer' => true, 'defer' => true],
             ],
-            [
-                'handle' => 'app',
-                'url' => APP_THEME_URL . '/dist/app.js',
-                'ver' => $app['version'],
-                'deps' => array_merge($app['dependencies'], ['wp-api']),
-                'args' => ['in_footer' => true, 'defer' => true],
-            ],
         ];
     }
 
     private function _styles(): array
     {
-        $app = include(APP_THEME_DIR . '/dist/app.asset.php');
-        return [
-            [
-                'handle' => 'app',
-                'url' => APP_THEME_URL . '/dist/app.css',
-                'ver' => $app['version'],
-                'deps' => null,
-                'media' => 'all',
-            ],
-        ];
+        return [];
     }
 }

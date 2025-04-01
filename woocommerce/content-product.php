@@ -82,8 +82,8 @@ wc_product_class('mm--product_content', $product); ?>>
   <div class='mm-background-overlay'>&nbsp;</div>
   <h4 class='mm-buy_this'><?php
       echo sprintf(__($text), $currency_symbol
-          .$current_price);
-      ?></h4><a href="<?php echo site_url('finalizar-compra') ?>?add-to-cart=<?php echo $product_id ?>&quantity=1" class="mm-add_to_cart"><?php _e('Buy now'); ?></a>
+          . $current_price);
+?></h4><a href="<?php echo site_url('finalizar-compra') ?>?add-to-cart=<?php echo $product_id ?>&quantity=1" class="mm-add_to_cart"><?php _e('Buy now'); ?></a>
 </div>
 <div class='mm-excerpt'>
   <?php echo $post->post_excerpt; ?>

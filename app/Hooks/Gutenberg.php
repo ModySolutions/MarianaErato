@@ -23,14 +23,6 @@ class Gutenberg
             $script = "window.onload = function() { const isFullscreenMode = wp.data.select( 'core/edit-post' ).isFeatureActive( 'fullscreenMode' ); if ( isFullscreenMode ) { wp.data.dispatch( 'core/edit-post' ).toggleFeature( 'fullscreenMode' ); } }";
             wp_add_inline_script('wp-blocks', $script);
         }
-
-        $editor = require_once APP_THEME_DIR . '/dist/editor.asset.php';
-        wp_enqueue_script(
-            'app-editor',
-            APP_THEME_URL . '/dist/editor.js',
-            $editor['dependencies'],
-            $editor['version'],
-        );
     }
 
     public function allowed_block_types_all($allowed_blocks): bool|array

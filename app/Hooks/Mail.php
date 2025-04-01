@@ -2,7 +2,6 @@
 
 namespace App\Hooks;
 
-use Roots\WPConfig\Config;
 use Timber\Timber;
 
 class Mail
@@ -39,7 +38,9 @@ class Mail
 
     public function sendgrid_send_mail($to, $subject, $message, $headers = []): bool
     {
-        if(!SENDGRID_API_URL) return false;
+        if (!SENDGRID_API_URL) {
+            return false;
+        }
 
         $url = SENDGRID_API_URL;
         $email_data = [

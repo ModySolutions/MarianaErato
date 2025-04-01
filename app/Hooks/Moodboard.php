@@ -2,17 +2,20 @@
 
 namespace App\Hooks;
 
-class Moodboard {
+class Moodboard
+{
     private string $post_type = 'moodboard';
 
-    public function init(): void {
+    public function init(): void
+    {
         add_action('init', [$this, 'wp_init']);
         add_action('acf/include_fields', [$this, 'acf_include_fields']);
     }
 
-    public function wp_init(): void {
-        register_post_type($this->post_type, array(
-            'labels' => array(
+    public function wp_init(): void
+    {
+        register_post_type($this->post_type, [
+            'labels' => [
                 'name' => __('Mood boards', APP_THEME_DOMAIN),
                 'singular_name' => __('Mood board', APP_THEME_DOMAIN),
                 'menu_name' => __('Mood boards', APP_THEME_DOMAIN),
@@ -42,23 +45,23 @@ class Moodboard {
                 'item_updated' => __('Mood board updated.', APP_THEME_DOMAIN),
                 'item_link' => __('Link to Mood board', APP_THEME_DOMAIN),
                 'item_link_description' => __('A link to a mood board.', APP_THEME_DOMAIN),
-            ),
+            ],
             'public' => true,
             'exclude_from_search' => true,
             'show_in_rest' => false,
-            'menu_position' => 3,
+            'menu_position' => 55,
             'menu_icon' => 'dashicons-excerpt-view',
-            'supports' => array(
+            'supports' => [
                 0 => 'title',
                 1 => 'editor',
                 2 => 'thumbnail',
-            ),
+            ],
             'delete_with_user' => false,
-        ));
-        register_taxonomy( 'moodboard-status', array(
+        ]);
+        register_taxonomy('moodboard-status', [
             0 => $this->post_type,
-        ), array(
-            'labels' => array(
+        ], [
+            'labels' => [
                 'name' => __('Status', APP_THEME_DOMAIN),
                 'singular_name' => __('Status', APP_THEME_DOMAIN),
                 'menu_name' => __('Status', APP_THEME_DOMAIN),
@@ -76,7 +79,7 @@ class Moodboard {
                 'back_to_items' => __('← Go to status', APP_THEME_DOMAIN),
                 'item_link' => __('Link to Status', APP_THEME_DOMAIN),
                 'item_link_description' => __('A link to an status', APP_THEME_DOMAIN),
-            ),
+            ],
             'public' => true,
             'hierarchical' => true,
             'publicly_queryable' => false,
@@ -84,24 +87,25 @@ class Moodboard {
             'show_in_rest' => false,
             'show_tagcloud' => false,
             'show_admin_column' => true,
-            'rewrite' => array(
+            'rewrite' => [
                 'hierarchical' => true,
-            ),
+            ],
             'sort' => true,
-        ) );
+        ]);
     }
 
-    public function acf_include_fields() : void {
+    public function acf_include_fields(): void
+    {
 
-        if ( ! function_exists( 'acf_add_local_field_group' ) ) {
+        if (! function_exists('acf_add_local_field_group')) {
             return;
         }
 
-        acf_add_local_field_group( array(
+        acf_add_local_field_group([
             'key' => 'group_672e0b6c92f7b',
             'title' => __('Modulos'),
-            'fields' => array(
-                array(
+            'fields' => [
+                [
                     'key' => 'field_672e0b6d53bc5',
                     'label' => __('Subtítulos'),
                     'name' => 'subtitulos',
@@ -110,11 +114,11 @@ class Moodboard {
                     'instructions' => '',
                     'required' => 0,
                     'conditional_logic' => 0,
-                    'wrapper' => array(
+                    'wrapper' => [
                         'width' => '',
                         'class' => '',
                         'id' => '',
-                    ),
+                    ],
                     'wpml_cf_preferences' => 2,
                     'default_value' => '',
                     'allow_in_bindings' => 0,
@@ -122,17 +126,17 @@ class Moodboard {
                     'toolbar' => 'basic',
                     'media_upload' => 0,
                     'delay' => 0,
-                ),
-            ),
-            'location' => array(
-                array(
-                    array(
+                ],
+            ],
+            'location' => [
+                [
+                    [
                         'param' => 'post_type',
                         'operator' => '==',
                         'value' => 'module',
-                    ),
-                ),
-            ),
+                    ],
+                ],
+            ],
             'menu_order' => 0,
             'position' => 'normal',
             'style' => 'default',
@@ -143,6 +147,6 @@ class Moodboard {
             'description' => '',
             'show_in_rest' => 0,
             'acfml_field_group_mode' => 'translation',
-        ) );
+        ]);
     }
 }

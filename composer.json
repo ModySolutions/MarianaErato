@@ -20,5 +20,9 @@
             "name": "Javier Troya",
             "email": "javiertroya@gmail.com"
         }
-    ]
+    ],
+    "scripts": {
+        "lint": "pint --test",
+        "lint:fix": "pint"
+    }
 }

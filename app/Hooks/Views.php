@@ -2,8 +2,6 @@
 
 namespace App\Hooks;
 
-use Roots\WPConfig\Config;
-
 class Views
 {
     public function init(): void
