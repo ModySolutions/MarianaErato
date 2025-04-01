@@ -57,14 +57,14 @@
 </style>
 <div class="mm-purchased">
     <?php if (count($purchased) > 0):
-      $posts = array_filter($purchased, function($item) {
-        return get_post_type($item->ID) === 'post';
-      });
-      unset($item);
-      $pages = array_filter($purchased, function($item){
-          return get_post_type($item->ID) === 'page';
-      });
-      ?>
+        $posts = array_filter($purchased, function ($item) {
+            return get_post_type($item->ID) === 'post';
+        });
+        unset($item);
+        $pages = array_filter($purchased, function ($item) {
+            return get_post_type($item->ID) === 'page';
+        });
+        ?>
     <h3><?php _e('Courses');?></h3>
       <div class='mm-purchased__list'>
           <?php foreach ($pages as $page):
@@ -85,7 +85,7 @@
       <h3><?php _e('Content');?></h3>
       <div class='mm-purchased__list'>
           <?php foreach ($posts as $post):
-                  $permalink = get_permalink($post->ID); ?>
+              $permalink = get_permalink($post->ID); ?>
                 <div class='mm-purchased__list__item <?php echo get_post_type($post->ID);?>'>
                     <?php $post_thumbnail = get_the_post_thumbnail_url($post->ID);?>
                   <div class='thumbnail' style='background-image: url(<?php echo $post_thumbnail?>);'>
@@ -99,14 +99,15 @@
               <?php
           endforeach; ?>
       </div>
-    <?php
-    else: ?>
+    <?php else: ?>
       <p><?php
           /** @noinspection PhpVoidFunctionResultUsedInspection */
-          apply_filters('wc_pay_per_post_shortcode_purchased_no_posts',
-              _e('You have not purchased any protected posts.', 'wc_pay_per_post'));
-          ?></p>
+          apply_filters(
+              'wc_pay_per_post_shortcode_purchased_no_posts',
+              _e('You have not purchased any protected posts.', 'wc_pay_per_post'),
+          );
+        ?></p>
     <?php
     endif;
-    ?>
+?>
 </div>

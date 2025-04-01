@@ -137,7 +137,8 @@ class Theme
         return 'low';
     }
 
-    public function body_class(array $classes) : array {
+    public function body_class(array $classes): array
+    {
         if (is_page()) {
             $page = get_post(get_the_ID());
             $slug = $page->post_name;
@@ -155,7 +156,7 @@ class Theme
                 'ver' => '0.0.1',
                 'deps' => ['jquery'],
                 'args' => ['in_footer' => true, 'defer' => true],
-            ]
+            ],
         ];
     }
 

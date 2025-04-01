@@ -2,8 +2,10 @@
 
 namespace App\Hooks;
 
-class Setup {
-    public function init(): void {
+class Setup
+{
+    public function init(): void
+    {
         if (DISALLOW_INDEXING !== true) {
             return;
         }
@@ -14,21 +16,25 @@ class Setup {
         add_filter('burst_menu_position', fn($position) => 58);
     }
 
-    public function admin_init(): void {
+    public function admin_init(): void
+    {
         if (!apply_filters('app/disallow_indexing_admin_notice', true)) {
             return;
         }
 
         add_action('admin_notices', function () {
             $message =
-                sprintf(__('%1$s Search engine indexing has been discouraged because the current environment is %2$s.',
-                        'roots'), '<strong>Boilerplate:</strong>', '<code>'.WP_ENV.'</code>',);
+                sprintf(__(
+                    '%1$s Search engine indexing has been discouraged because the current environment is %2$s.',
+                    'roots',
+                ), '<strong>Boilerplate:</strong>', '<code>' . WP_ENV . '</code>', );
             echo "<div class='notice notice-warning'><p>{$message}</p></div>";
         });
     }
 
-    public function admin_menu(): void {
-        if(WP_ENV === 'local') {
+    public function admin_menu(): void
+    {
+        if (WP_ENV === 'local') {
             remove_menu_page('filebird-settings');
             remove_menu_page('edit.php?post_type=acf-field-group');
             remove_menu_page('postman');

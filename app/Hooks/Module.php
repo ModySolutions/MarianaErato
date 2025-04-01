@@ -2,17 +2,20 @@
 
 namespace App\Hooks;
 
-class Module {
+class Module
+{
     private string $post_type = 'module';
 
-    public function init(): void {
+    public function init(): void
+    {
         add_action('init', [$this, 'wp_init']);
         add_action('acf/include_fields', [$this, 'acf_include_fields']);
     }
 
-    public function wp_init(): void {
-        register_post_type($this->post_type, array(
-            'labels' => array(
+    public function wp_init(): void
+    {
+        register_post_type($this->post_type, [
+            'labels' => [
                 'name' => __('Modulos'),
                 'singular_name' => __('Modulo'),
                 'menu_name' => __('Modulos'),
@@ -42,11 +45,11 @@ class Module {
                 'item_updated' => __('Modulo actualizado.'),
                 'item_link' => __('Enlace a Modulo'),
                 'item_link_description' => __('Un enlace a un modulo.'),
-            ),
+            ],
             'public' => true,
             'show_in_rest' => true,
             'menu_icon' => 'dashicons-book-alt',
-            'supports' => array(
+            'supports' => [
                 'title',
                 'author',
                 'editor',
@@ -54,27 +57,28 @@ class Module {
                 'page-attributes',
                 'thumbnail',
                 'custom-fields',
-            ),
+            ],
             'has_archive' => true,
-            'rewrite' => array(
+            'rewrite' => [
                 'feeds' => false,
-            ),
+            ],
             'delete_with_user' => false,
-        ));
+        ]);
 
     }
 
-    public function acf_include_fields() : void {
+    public function acf_include_fields(): void
+    {
 
-        if ( ! function_exists( 'acf_add_local_field_group' ) ) {
+        if (! function_exists('acf_add_local_field_group')) {
             return;
         }
 
-        acf_add_local_field_group( array(
+        acf_add_local_field_group([
             'key' => 'group_672e0b6c92f7b',
             'title' => __('Modulos'),
-            'fields' => array(
-                array(
+            'fields' => [
+                [
                     'key' => 'field_672e0b6d53bc5',
                     'label' => __('Subtítulos'),
                     'name' => 'subtitulos',
@@ -83,11 +87,11 @@ class Module {
                     'instructions' => '',
                     'required' => 0,
                     'conditional_logic' => 0,
-                    'wrapper' => array(
+                    'wrapper' => [
                         'width' => '',
                         'class' => '',
                         'id' => '',
-                    ),
+                    ],
                     'wpml_cf_preferences' => 2,
                     'default_value' => '',
                     'allow_in_bindings' => 0,
@@ -95,17 +99,17 @@ class Module {
                     'toolbar' => 'basic',
                     'media_upload' => 0,
                     'delay' => 0,
-                ),
-            ),
-            'location' => array(
-                array(
-                    array(
+                ],
+            ],
+            'location' => [
+                [
+                    [
                         'param' => 'post_type',
                         'operator' => '==',
                         'value' => 'module',
-                    ),
-                ),
-            ),
+                    ],
+                ],
+            ],
             'menu_order' => 0,
             'position' => 'normal',
             'style' => 'default',
@@ -116,6 +120,6 @@ class Module {
             'description' => '',
             'show_in_rest' => 0,
             'acfml_field_group_mode' => 'translation',
-        ) );
+        ]);
     }
 }
