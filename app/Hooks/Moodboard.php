@@ -46,7 +46,7 @@ class Moodboard {
             'public' => true,
             'exclude_from_search' => true,
             'show_in_rest' => false,
-            'menu_position' => 3,
+            'menu_position' => 55,
             'menu_icon' => 'dashicons-excerpt-view',
             'supports' => array(
                 0 => 'title',

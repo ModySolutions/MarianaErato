@@ -29,6 +29,7 @@ define('APP_THEME_URL', trailingslashit(get_stylesheet_directory_uri()));
 define('APP_PATH', trailingslashit(APP_THEME_DIR.'app'));
 define('APP_RESOURCES_PATH', APP_THEME_DIR . 'resources/views');
 define('APP_TEMPLATES', array());
+define('APP_REMOVE_ADMIN_MENUS', env('APP_REMOVE_ADMIN_MENUS') ?? false);
 
 /**
  * Email Config Constants
