@@ -1,0 +1,47 @@
+{
+  "name": "marianaerato",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "pnpm run build:app && pnpm run build:blocks",
+    "build:app": "wp-scripts build --webpack-src-dir=resources --output-path=dist --config config/webpack.config.js",
+    "build:blocks": "wp-scripts build --webpack-src-dir=resources/blocks --webpack-copy-php --output-path=blocks --config config/blocks.webpack.config.js",
+    "dev": "concurrently \"pnpm run dev:app\" \"pnpm run dev:blocks\"",
+    "dev:app": "wp-scripts start --webpack-src-dir=resources --output-path=dist --config config/webpack.config.js",
+    "dev:blocks": "wp-scripts start --webpack-src-dir=resources/blocks --webpack-copy-php --output-path=blocks --config config/blocks.webpack.config.js",
+    "lint": "pnpm lint:css && pnpm lint:js && pnpm lint:jsx && composer run lint",
+    "lint:style": "wp-scripts lint-style 'resources/**/*.scss'",
+    "lint:js": "wp-scripts lint-js 'resources/**/*.js'",
+    "lint:jsx": "wp-scripts lint-js 'resources/**/*.jsx'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@wordpress/block-editor": "^14.15.0",
+    "@wordpress/blocks": "^14.9.0",
+    "@wordpress/icons": "^10.20.0",
+    "@wordpress/scripts": "^30.13.0",
+    "@babel/core": "^7.26.10",
+    "@babel/preset-react": "^7.26.3",
+    "@wordpress/components": "^29.6.0",
+    "@wordpress/dom-ready": "^4.20.0",
+    "@wordpress/element": "^6.20.0",
+    "@wordpress/i18n": "^5.20.0",
+    "babel-loader": "^10.0.0"
+  },
+  "devDependencies": {
+    "@wordpress/stylelint-config": "^23.12.0",
+    "concurrently": "^9.1.2",
+    "css-loader": "^7.1.2",
+    "sass-loader": "^16.0.5",
+    "scss-loader": "^0.0.1",
+    "style-loader": "^4.0.0",
+    "stylelint": "^16.17.0",
+    "stylelint-config-recommended": "^15.0.0",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1",
+    "webpack-manifest-plugin": "^5.0.1"
+  }
+}
