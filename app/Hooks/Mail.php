@@ -39,16 +39,17 @@ class Mail
 
     public function sendgrid_send_mail($to, $subject, $message, $headers = []): bool
     {
-        $url = Config::get('SENDGRID_API_URL');
+        if(!SENDGRID_API_URL) return false;
 
+        $url = SENDGRID_API_URL;
         $email_data = [
             'personalizations' => [[
                 'to' => is_array($to) ? array_map(fn($email) => ['email' => $email], $to) : [['email' => $to]],
                 'subject' => $subject,
             ]],
             'from' => [
-                'email' => Config::get('EMAIL_FROM'),
-                'name'  => Config::get('EMAIL_FROM_NAME'),
+                'email' => EMAIL_FROM,
+                'name'  => EMAIL_FROM_NAME,
             ],
             'content' => [[
                 'type' => 'text/html',
@@ -62,7 +63,7 @@ class Mail
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($email_data));
         curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Authorization: Bearer ' . Config::get('SENDGRID_API_KEY'),
+            'Authorization: Bearer ' . SENDGRID_API_KEY,
             'Content-Type: application/json',
         ]);
 

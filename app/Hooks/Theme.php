@@ -2,8 +2,6 @@
 
 namespace App\Hooks;
 
-use Roots\WPConfig\Config;
-
 class Theme
 {
     public function init(): void
@@ -13,12 +11,13 @@ class Theme
         add_action('wp_enqueue_scripts', [$this, 'wp_enqueue_scripts'], 100);
         add_action('admin_head', [$this, 'admin_head']);
         add_action('wp_footer', [$this, 'wp_footer']);
-        add_action('admin_menu', [$this, 'admin_menu']);
+        add_action('admin_menu', [$this, 'admin_menu'], 100);
         add_filter('the_content', [$this, 'the_content'], 30);
         add_filter('template_include', [$this, 'template_include']);
         add_filter('theme_page_templates', [$this, 'theme_page_templates']);
         add_filter('wpseo_debug_markers', '__return_false');
         add_filter('wpseo_metabox_prio', [$this, 'wpseo_metabox_prio']);
+        add_filter('body_class', [$this, 'body_class']);
     }
 
     public function wp_init(): void
@@ -51,12 +50,12 @@ class Theme
         add_theme_support('post-thumbnails');
         add_theme_support('title-tag');
         add_theme_support('custom-logo');
-        load_theme_textdomain(Config::get('APP_THEME_DOMAIN'), Config::get('ROOT_DIR') . '/languages');
+        load_theme_textdomain(APP_THEME_DOMAIN, APP_THEME_DIR . '/languages');
     }
 
     public function wp_enqueue_scripts(): void
     {
-        foreach (self::_scripts() as $script) {
+        foreach ($this->_scripts() as $script) {
             wp_register_script(
                 $script['handle'],
                 $script['url'],
@@ -73,7 +72,7 @@ class Theme
             wp_enqueue_script($script['handle']);
         }
 
-        foreach (self::_styles() as $style) {
+        foreach ($this->_styles() as $style) {
             wp_register_style(
                 $style['handle'],
                 $style['url'],
@@ -98,7 +97,7 @@ class Theme
             return $template;
         }
 
-        $templates = Config::get('APP_TEMPLATES');
+        $templates = APP_TEMPLATES;
 
         $meta = get_post_meta($post->ID, '_wp_page_template', true);
 
@@ -138,10 +137,26 @@ class Theme
         return 'low';
     }
 
-    private static function _scripts(): array
+    public function body_class(array $classes) : array {
+        if (is_page()) {
+            $page = get_post(get_the_ID());
+            $slug = $page->post_name;
+            return array_merge($classes, [$slug]);
+        }
+        return $classes;
+    }
+
+    private function _scripts(): array
     {
         $app = include(APP_THEME_DIR . '/dist/app.asset.php');
         return [
+            [
+                'handle' => 'app',
+                'url' => APP_THEME_URL . '/assets/marianaerato.js',
+                'ver' => '0.0.1',
+                'deps' => ['jquery'],
+                'args' => ['in_footer' => true, 'defer' => true],
+            ],
             [
                 'handle' => 'app',
                 'url' => APP_THEME_URL . '/dist/app.js',
@@ -152,7 +167,7 @@ class Theme
         ];
     }
 
-    private static function _styles(): array
+    private function _styles(): array
     {
         $app = include(APP_THEME_DIR . '/dist/app.asset.php');
         return [

@@ -48,7 +48,7 @@ class Views
     public function timber_locations(array $paths): array
     {
         $paths['app'] = [
-            Config::get('RESOURCES_PATH') . '/views',
+            APP_RESOURCES_PATH . '/views',
         ];
 
         return $paths;

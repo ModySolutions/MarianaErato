@@ -2,8 +2,6 @@
 
 namespace App\Hooks;
 
-use Roots\WPConfig\Config;
-
 class Gutenberg
 {
     public function init(): void
@@ -21,7 +19,7 @@ class Gutenberg
 
     public function enqueue_block_editor_assets(): void
     {
-        if (Config::get('WP_DISABLE_FULLSCREEN_EDITOR')) {
+        if (WP_DISABLE_FULLSCREEN_EDITOR) {
             $script = "window.onload = function() { const isFullscreenMode = wp.data.select( 'core/edit-post' ).isFeatureActive( 'fullscreenMode' ); if ( isFullscreenMode ) { wp.data.dispatch( 'core/edit-post' ).toggleFeature( 'fullscreenMode' ); } }";
             wp_add_inline_script('wp-blocks', $script);
         }

@@ -2,13 +2,11 @@
 
 namespace App\Hooks;
 
-use Roots\WPConfig\Config;
-
 class Setup
 {
     public function init(): void
     {
-        if (Config::get('DISALLOW_INDEXING') !== true) {
+        if (DISALLOW_INDEXING !== true) {
             return;
         }
         add_action('admin_init', [$this, 'admin_init']);
