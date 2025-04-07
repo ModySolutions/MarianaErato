@@ -66,8 +66,3 @@ jobs:
           rsync -e "ssh -o StrictHostKeyChecking=no" -avz --no-times --update --exclude='node_modules' --exclude='package.json' --exclude='.git*' --exclude='resources/scripts' --exclude='resources/scss' --exclude='pint.json' --exclude='composer.lock' --exclude='sample*' --exclude='*.md' --exclude='pnpm*' --exclude='wp-cli*' ./* ${{ vars.SSH_USER_SERVER }}:${{ vars.TARGET_DIR }} --verbose
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: 🛠 Change ownership on VPS
-        run: |
-          ssh -o StrictHostKeyChecking=no ${{ vars.SSH_USER_SERVER }} "sudo /home/deploy/chown"
-
