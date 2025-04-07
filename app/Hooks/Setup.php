@@ -6,12 +6,11 @@ class Setup
 {
     public function init(): void
     {
-        if (DISALLOW_INDEXING !== true) {
-            return;
+        if (DISALLOW_INDEXING === true) {
+            add_action('admin_init', [$this, 'admin_init'], 99999);
+            add_action('admin_menu', [$this, 'admin_menu'], 99999);
+            add_action('pre_option_blog_public', '__return_zero');
         }
-        add_action('admin_init', [$this, 'admin_init'], 99999);
-        add_action('admin_menu', [$this, 'admin_menu'], 99999);
-        add_action('pre_option_blog_public', '__return_zero');
 
         add_filter('burst_menu_position', fn($position) => 58);
 
