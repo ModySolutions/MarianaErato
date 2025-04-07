@@ -9,11 +9,17 @@ class Setup
         if (DISALLOW_INDEXING !== true) {
             return;
         }
-        add_action('admin_init', [$this, 'admin_init']);
+        add_action('admin_init', [$this, 'admin_init'], 99999);
         add_action('admin_menu', [$this, 'admin_menu'], 99999);
         add_action('pre_option_blog_public', '__return_zero');
 
         add_filter('burst_menu_position', fn($position) => 58);
+
+        remove_action('after_plugin_row_acfml/wpml-acf.php', [\OTGS_Installer_Plugins_Page_Notice::class, 'show_purchase_notice_under_plugin']);
+        remove_action('after_plugin_row_wpml-cms-nav/plugin.php', [\OTGS_Installer_Plugins_Page_Notice::class, 'show_purchase_notice_under_plugin']);
+        remove_action('after_plugin_row_sitepress-multilingual-cms/sitepress.php', [\OTGS_Installer_Plugins_Page_Notice::class, 'show_purchase_notice_under_plugin']);
+        remove_action('after_plugin_row_wp-seo-multilingual/plugin.php', [\OTGS_Installer_Plugins_Page_Notice::class, 'show_purchase_notice_under_plugin']);
+        remove_action('after_plugin_row_wpml-string-translation/plugin.php', [\OTGS_Installer_Plugins_Page_Notice::class, 'show_purchase_notice_under_plugin']);
     }
 
     public function admin_init(): void
@@ -41,7 +47,7 @@ class Setup
             remove_menu_page('wpseo_dashboard');
             remove_menu_page('complianz');
             remove_menu_page('wc_pay_per_post');
-            remove_menu_page('tm/menu/main.php');
+            //            remove_menu_page('tm/menu/main.php');
             remove_menu_page('admin.php?page=wc-admin&task=payments');
             remove_menu_page('elementor');
         }
