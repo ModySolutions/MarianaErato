@@ -53,10 +53,10 @@ class Module
                 'title',
                 'author',
                 'editor',
+                'custom-fields',
                 'excerpt',
                 'page-attributes',
                 'thumbnail',
-                'custom-fields',
             ],
             'has_archive' => true,
             'rewrite' => [
