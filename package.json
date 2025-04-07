@@ -13,6 +13,8 @@
     "lint": "pnpm lint:style && pnpm lint:js && composer run lint",
     "lint:style": "wp-scripts lint-style 'resources/**/*.scss'",
     "lint:js": "wp-scripts lint-js 'resources/**/*.js'",
+    "lint:php": "composer run lint",
+    "lint:php:fix": "composer run lint:fix",
     "lint:jsx": "wp-scripts lint-js 'resources/**/*.jsx'"
   },
   "keywords": [],
