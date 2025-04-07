@@ -40,14 +40,13 @@ class Setup
 
     public function admin_menu(): void
     {
-        if (WP_ENV === 'local') {
+        if (WP_ENV === 'production') {
             remove_menu_page('filebird-settings');
             remove_menu_page('edit.php?post_type=acf-field-group');
             remove_menu_page('postman');
             remove_menu_page('wpseo_dashboard');
             remove_menu_page('complianz');
             remove_menu_page('wc_pay_per_post');
-            //            remove_menu_page('tm/menu/main.php');
             remove_menu_page('admin.php?page=wc-admin&task=payments');
             remove_menu_page('elementor');
         }
