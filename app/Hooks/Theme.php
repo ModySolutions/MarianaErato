@@ -110,7 +110,7 @@ class Theme
 
     public function theme_page_templates(array $templates): array
     {
-        return array_merge($templates, Config::get('APP_TEMPLATES') ?? []);
+        return array_merge($templates, APP_TEMPLATES ?? []);
     }
 
     public function admin_head(): void
