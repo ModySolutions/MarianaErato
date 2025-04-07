@@ -12,7 +12,6 @@ class Setup
         }
 
         add_action('admin_menu', [$this, 'admin_menu'], 99999);
-        add_filter('burst_menu_position', fn($position) => 58);
 
         remove_action('after_plugin_row_acfml/wpml-acf.php', [\OTGS_Installer_Plugins_Page_Notice::class, 'show_purchase_notice_under_plugin']);
         remove_action('after_plugin_row_wpml-cms-nav/plugin.php', [\OTGS_Installer_Plugins_Page_Notice::class, 'show_purchase_notice_under_plugin']);
@@ -48,6 +47,8 @@ class Setup
             remove_menu_page('wc_pay_per_post');
             remove_menu_page('admin.php?page=wc-admin&task=payments');
             remove_menu_page('elementor');
+            remove_menu_page('admin.php?page=litespeed');
+            remove_menu_page('admin.php?page=really-simple-security');
         }
     }
 }
