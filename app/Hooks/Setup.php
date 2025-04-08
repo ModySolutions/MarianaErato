@@ -18,6 +18,7 @@ class Setup
         remove_action('after_plugin_row_sitepress-multilingual-cms/sitepress.php', [\OTGS_Installer_Plugins_Page_Notice::class, 'show_purchase_notice_under_plugin']);
         remove_action('after_plugin_row_wp-seo-multilingual/plugin.php', [\OTGS_Installer_Plugins_Page_Notice::class, 'show_purchase_notice_under_plugin']);
         remove_action('after_plugin_row_wpml-string-translation/plugin.php', [\OTGS_Installer_Plugins_Page_Notice::class, 'show_purchase_notice_under_plugin']);
+        remove_action('admin_menu', [\Admin_Display::class, 'register_admin_menu']);
     }
 
     public function admin_init(): void
