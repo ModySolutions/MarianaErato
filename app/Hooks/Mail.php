@@ -9,8 +9,8 @@ class Mail
     public function init(): void
     {
         // @todo change email template to this.
-//        add_filter('wp_mail', [$this, 'wp_mail']);
-//        add_filter('wp_mail_content_type', [$this, 'wp_mail_content_type']);
+        //        add_filter('wp_mail', [$this, 'wp_mail']);
+        //        add_filter('wp_mail_content_type', [$this, 'wp_mail_content_type']);
     }
 
     public function wp_mail(array $args): bool
