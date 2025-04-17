@@ -5,7 +5,7 @@
 //usort($purchased, fn($a, $b) => strcmp($a->last_purchase_date, $b->last_purchase_date));
 
 ?>
-<!--<pre>--><?php //echo str_replace(['<', '>'], ['&lt;', '&gt;'], print_r(array_map(fn($i) => $i->ID, $purchased), 1));exit; ?><!--</pre>-->
+<!--<pre>--><?php //echo str_replace(['<', '>'], ['&lt;', '&gt;'], print_r(array_map(fn($i) => $i->ID, $purchased), 1));exit;?><!--</pre>-->
 <style>
     .mm-purchased {
         padding: 1rem;
