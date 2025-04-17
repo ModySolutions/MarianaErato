@@ -3,7 +3,9 @@
 /** @noinspection PhpUndefinedVariableInspection */
 //Sort by last purchase date
 //usort($purchased, fn($a, $b) => strcmp($a->last_purchase_date, $b->last_purchase_date));
+
 ?>
+<!--<pre>--><?php //echo str_replace(['<', '>'], ['&lt;', '&gt;'], print_r(array_map(fn($i) => $i->ID, $purchased), 1));exit; ?><!--</pre>-->
 <style>
     .mm-purchased {
         padding: 1rem;
@@ -61,28 +63,8 @@
             return get_post_type($item->ID) === 'post';
         });
         unset($item);
-        $pages = array_filter($purchased, function ($item) {
-            return get_post_type($item->ID) === 'page';
-        });
         ?>
-    <h3><?php _e('Courses');?></h3>
-      <div class='mm-purchased__list'>
-          <?php foreach ($pages as $page):
-              $permalink = get_permalink($page->ID); ?>
-            <div class='mm-purchased__list__item <?php echo get_post_type($page->ID);?>'>
-                <?php $page_thumbnail = get_the_post_thumbnail_url($page->ID);?>
-              <div class='thumbnail' style='background-image: url(<?php echo $page_thumbnail?>);'></div>
-              <div class='info'>
-                <a href="<?php echo $permalink; ?>">
-                  <?php echo esc_html($page->post_title); ?>
-                </a>
-              </div>
-            </div>
-          <?php
-          endforeach; ?>
-      </div>
-      <hr style='margin: 1rem 0;'>
-      <h3><?php _e('Content');?></h3>
+      <h3><?php _e('Purchased Content');?></h3>
       <div class='mm-purchased__list'>
           <?php foreach ($posts as $post):
               $permalink = get_permalink($post->ID); ?>

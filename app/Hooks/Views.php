@@ -26,7 +26,8 @@ class Views
 
     public function timber_context(array $context): array
     {
-        return $context;
+        do_action('app_render_view', $context);
+        return apply_filters('app_render_view', $context);
     }
 
     public function timber_twig(\Twig\Environment $twig): \Twig\Environment
