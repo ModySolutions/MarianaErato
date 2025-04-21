@@ -25,7 +25,7 @@ class WooCommerce
             exit;
         }
 
-        if (is_page('finalizar-compra')) {
+        if (is_page('finalizar-compra') || is_page('complete-purchase')) {
             $order_id = wc_get_order_id_by_order_key($_GET['key'] ?? '');
             if (!$order_id) {
                 return;
