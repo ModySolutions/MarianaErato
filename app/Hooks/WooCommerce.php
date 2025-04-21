@@ -14,6 +14,7 @@ class WooCommerce
         add_filter('woocommerce_checkout_fields', [$this, 'woocommerce_checkout_fields']);
         add_filter('wc_cc_bill_set_order_status', [$this, 'wc_cc_bill_set_order_status'], 10, 3);
         add_filter('woocommerce_get_checkout_order_received_url', [$this, 'woocommerce_get_checkout_order_received_url'], 10, 2);
+        add_filter('woocommerce_add_to_cart_redirect', [$this, 'woocommerce_add_to_cart_redirect']);
     }
 
     public function template_redirect(): void
@@ -87,5 +88,10 @@ class WooCommerce
             ]);
         }
         return add_query_arg('ch', time(), $order_received_url);
+    }
+
+    public function woocommerce_add_to_cart_redirect(string $url): string
+    {
+        return wc_get_checkout_url();
     }
 }
