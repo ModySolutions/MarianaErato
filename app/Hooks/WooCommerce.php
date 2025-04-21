@@ -23,6 +23,43 @@ class WooCommerce
             wp_safe_redirect(wc_get_checkout_url());
             exit;
         }
+
+        if (is_page('finalizar-compra')) {
+            $order_id = wc_get_order_id_by_order_key($_GET['key'] ?? '');
+            if (!$order_id) {
+                return;
+            }
+
+            $order = wc_get_order($order_id);
+            if (!$order) {
+                return;
+            }
+
+            if ($order->is_paid()) {
+                $items = $order->get_items();
+                $product_id = reset($items)->get_product_id();
+
+                $linked_post_id = get_post_meta($product_id, 'linked_post_id', true);
+
+                $lang = apply_filters('wpml_current_language', null);
+
+                $translated_post_id = apply_filters('wpml_object_id', $linked_post_id, 'post', true, $lang);
+
+                if ($translated_post_id) {
+                    wp_safe_redirect(add_query_arg([
+                        'purchased' => time(),
+                    ], get_permalink($translated_post_id)));
+                } else {
+                    wp_safe_redirect(add_query_arg([
+                        'purchased' => time(),
+                    ], get_permalink($linked_post_id)));
+                }
+            } else {
+                wp_safe_redirect($order->get_view_order_url());
+            }
+
+            exit;
+        }
     }
 
     public function woocommerce_add_to_cart_validation(bool $passed): bool
