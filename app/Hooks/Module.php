@@ -62,7 +62,7 @@ class Module
             'rewrite' => [
                 'feeds' => false,
             ],
-            'delete_with_user' => false,
+            'delete_with_user' => true,
         ]);
 
     }
