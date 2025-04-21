@@ -16,7 +16,8 @@ class WooCommerce
         add_filter('woocommerce_get_checkout_order_received_url', [$this, 'woocommerce_get_checkout_order_received_url'], 10, 2);
     }
 
-    public function template_redirect() : void {
+    public function template_redirect(): void
+    {
         if (is_cart() && WC()->cart->get_cart_contents_count() > 0) {
             wp_safe_redirect(wc_get_checkout_url());
             exit;
