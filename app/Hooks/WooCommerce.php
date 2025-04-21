@@ -20,7 +20,8 @@ class WooCommerce
     public function template_redirect(): void
     {
         if (is_cart() && WC()->cart->get_cart_contents_count() > 0) {
-            wp_safe_redirect(wc_get_checkout_url());
+            $checkout_url = apply_filters('wpml_permalink', wc_get_checkout_url(), apply_filters('wpml_current_language', null));
+            wp_safe_redirect($checkout_url);
             exit;
         }
 
