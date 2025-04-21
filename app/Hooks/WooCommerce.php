@@ -2,7 +2,6 @@
 
 namespace App\Hooks;
 
-use AC\Column\Post\Order;
 use Automattic\WooCommerce\Enums\OrderStatus;
 
 class WooCommerce
@@ -60,10 +59,10 @@ class WooCommerce
     public function wc_cc_bill_set_order_status(
         bool $status,
         \WC_Order $order,
-        ?string $transaction_id = ''
+        ?string $transaction_id = '',
     ): bool {
-        if($status) {
-            $order->add_order_note( __( 'PDT payment completed', 'woocommerce-payment-gateway-ccbill' ) );
+        if ($status) {
+            $order->add_order_note(__('PDT payment completed', 'woocommerce-payment-gateway-ccbill'));
             $order->payment_complete($transaction_id);
             $order->set_status(OrderStatus::COMPLETED);
             $order->save();
@@ -71,12 +70,13 @@ class WooCommerce
         return $status;
     }
 
-    public function woocommerce_get_checkout_order_received_url(string $order_received_url, \WC_Order $order) : string {
-        if($order->get_status() === OrderStatus::COMPLETED) {
-            wp_update_post(array(
+    public function woocommerce_get_checkout_order_received_url(string $order_received_url, \WC_Order $order): string
+    {
+        if ($order->get_status() === OrderStatus::COMPLETED) {
+            wp_update_post([
                 'ID' => $order->get_id(),
                 'post_status' => OrderStatus::COMPLETED,
-            ));
+            ]);
         }
         return add_query_arg('ch', time(), $order_received_url);
     }
