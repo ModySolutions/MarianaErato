@@ -8,11 +8,20 @@ class WooCommerce
 {
     public function init(): void
     {
+        add_action('template_redirect', [$this, 'template_redirect']);
         add_action('woocommerce_checkout_order_created', [$this, 'woocommerce_checkout_order_created'], 10, 2);
         add_filter('woocommerce_add_to_cart_validation', [$this, 'woocommerce_add_to_cart_validation'], 9999);
         add_filter('woocommerce_checkout_fields', [$this, 'woocommerce_checkout_fields']);
         add_filter('wc_cc_bill_set_order_status', [$this, 'wc_cc_bill_set_order_status'], 10, 3);
         add_filter('woocommerce_get_checkout_order_received_url', [$this, 'woocommerce_get_checkout_order_received_url'], 10, 2);
+    }
+
+    public function template_redirect(): void
+    {
+        if (is_cart() && WC()->cart->get_cart_contents_count() > 0) {
+            wp_safe_redirect(wc_get_checkout_url());
+            exit;
+        }
     }
 
     public function woocommerce_add_to_cart_validation(bool $passed): bool
