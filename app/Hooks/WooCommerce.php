@@ -9,7 +9,6 @@ class WooCommerce
     public function init(): void
     {
         add_action('woocommerce_checkout_order_created', [$this, 'woocommerce_checkout_order_created'], 10, 2);
-
         add_filter('woocommerce_add_to_cart_validation', [$this, 'woocommerce_add_to_cart_validation'], 9999);
         add_filter('woocommerce_checkout_fields', [$this, 'woocommerce_checkout_fields']);
         add_filter('wc_cc_bill_set_order_status', [$this, 'wc_cc_bill_set_order_status'], 10, 3);
