@@ -5,7 +5,6 @@
 //usort($purchased, fn($a, $b) => strcmp($a->last_purchase_date, $b->last_purchase_date));
 
 ?>
-<!--<pre>--><?php //echo str_replace(['<', '>'], ['&lt;', '&gt;'], print_r(array_map(fn($i) => $i->ID, $purchased), 1));exit;?><!--</pre>-->
 <style>
     .mm-purchased {
         padding: 1rem;
@@ -59,9 +58,12 @@
 </style>
 <div class="mm-purchased">
     <?php if (count($purchased) > 0):
-        $posts = array_filter($purchased, function ($item) {
-            return get_post_type($item->ID) === 'post';
-        });
+        $language = apply_filters('wpml_current_language', null);
+        $posts = array_values(array_filter($purchased, function (WP_Post $item) use ($language) {
+            $lang_info = apply_filters( 'wpml_post_language_details', null, $item->ID );
+            return get_post_type($item->ID) === 'post' &&
+                (array_key_exists('language_code', $lang_info) && $language === $lang_info['language_code']);
+        }));
         unset($item);
         ?>
       <h3><?php _e('Purchased Content');?></h3>
