@@ -10,7 +10,7 @@ class Language
         add_filter('locale', [$this, 'locale']);
     }
 
-    public function wp_init() : void
+    public function wp_init(): void
     {
         if (isset($_GET['language']) && function_exists('icl_switch_language')) {
             $lang = sanitize_text_field($_GET['language']);

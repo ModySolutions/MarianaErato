@@ -60,7 +60,7 @@
     <?php if (count($purchased) > 0):
         $language = apply_filters('wpml_current_language', null);
         $posts = array_values(array_filter($purchased, function (WP_Post $item) use ($language) {
-            $lang_info = apply_filters( 'wpml_post_language_details', null, $item->ID );
+            $lang_info = apply_filters('wpml_post_language_details', null, $item->ID);
             return get_post_type($item->ID) === 'post' &&
                 (array_key_exists('language_code', $lang_info) && $language === $lang_info['language_code']);
         }));

@@ -94,12 +94,17 @@ class WooCommerce
         }
     }
 
-    public function woocommerce_thankyou_wc(int $order_id):void {
-        if(!$order_id) return;
+    public function woocommerce_thankyou_wc(int $order_id): void
+    {
+        if (!$order_id) {
+            return;
+        }
         $order = wc_get_order($order_id);
-        if(!$order) return;
+        if (!$order) {
+            return;
+        }
         $cache_hash = $_GET['ch'] ?? false;
-        if($cache_hash && $order->is_paid()) {
+        if ($cache_hash && $order->is_paid()) {
             do_action('wc_cc_bill_order_redirect', $order);
         }
     }
@@ -126,7 +131,7 @@ class WooCommerce
                 'post_status' => OrderStatus::COMPLETED,
             ]);
         }
-        $order_received_url = apply_filters( 'wpml_permalink', $order_received_url, apply_filters( 'wpml_current_language', null ) );
+        $order_received_url = apply_filters('wpml_permalink', $order_received_url, apply_filters('wpml_current_language', null));
         return add_query_arg('ch', time(), $order_received_url);
     }
 
@@ -135,8 +140,8 @@ class WooCommerce
         return wc_get_checkout_url();
     }
 
-    public function woocommerce_get_checkout_url(string $url) : string
+    public function woocommerce_get_checkout_url(string $url): string
     {
-        return apply_filters( 'wpml_permalink', $url, apply_filters( 'wpml_current_language', null ) );
+        return apply_filters('wpml_permalink', $url, apply_filters('wpml_current_language', null));
     }
 }
