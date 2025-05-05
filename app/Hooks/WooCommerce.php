@@ -2,18 +2,18 @@
 
 namespace App\Hooks;
 
-use App\Features\PayPerPost;
 use Automattic\WooCommerce\Enums\OrderStatus;
 
 class WooCommerce
 {
-    use PayPerPost;
+    use \App\Features\WooCommerce;
     public function init(): void
     {
         add_action('template_redirect', [$this, 'template_redirect']);
         add_action('woocommerce_checkout_order_created', [$this, 'woocommerce_checkout_order_created'], 10, 2);
         add_action('wc_cc_bill_order_redirect', [$this, 'wc_cc_bill_order_redirect'], 10, 3);
         add_action('woocommerce_thankyou_wc_gateway_ccbill', [$this, 'woocommerce_thankyou_wc']);
+        add_action('woocommerce_order_details_before_order_table', [$this, 'woocommerce_order_details_before_order_table']);
 
         add_filter('woocommerce_add_to_cart_validation', [$this, 'woocommerce_add_to_cart_validation'], 9999);
         add_filter('woocommerce_checkout_fields', [$this, 'woocommerce_checkout_fields']);
@@ -27,6 +27,11 @@ class WooCommerce
     {
         if (is_cart() && WC()->cart->get_cart_contents_count() > 0) {
             wp_safe_redirect(wc_get_checkout_url());
+            exit;
+        }
+
+        if(is_product()) {
+            wp_safe_redirect($this->get_product_permalink_by_lang(get_the_ID()));
             exit;
         }
     }
@@ -71,27 +76,11 @@ class WooCommerce
 
     public function wc_cc_bill_order_redirect(\WC_Order $order): void
     {
+        $redirect_url = $order->get_view_order_url();
         if ($order->is_paid()) {
-            $items = $order->get_items();
-            $product_id = reset($items)->get_product_id();
-
-            $linked_products = $this->get_posts_linked_to_product($product_id);
-            $linked_post_id = reset($linked_products)->ID;
-
-            $lang = apply_filters('wpml_current_language', null);
-
-            $translated_post_id = apply_filters('wpml_object_id', $linked_post_id, 'post', true, $lang);
-            $post_url = get_permalink($translated_post_id ?? $linked_post_id);
-            do_action('litespeed_purge_url', $post_url);
-            $redirect_url = add_query_arg([
-                'purchased' => time(),
-            ], $post_url);
-            wp_safe_redirect($redirect_url);
-            exit;
-        } else {
-            wp_safe_redirect($order->get_view_order_url());
-            exit;
+            $redirect_url = $this->get_order_url($order);
         }
+        wp_safe_redirect($redirect_url);
     }
 
     public function woocommerce_thankyou_wc(int $order_id): void
@@ -109,13 +98,23 @@ class WooCommerce
         }
     }
 
+    public function woocommerce_order_details_before_order_table(\WC_Order $order) : void
+    {
+        $cache_hash = $_REQUEST['ch'] ?? false;
+        if($cache_hash && $order->is_paid()) {
+            apply_filters('wc_cc_bill_set_order_status', OrderStatus::COMPLETED, $order);
+            wp_safe_redirect($this->get_order_url($order));
+            exit;
+        }
+    }
+
     public function wc_cc_bill_set_order_status(
         bool $status,
         \WC_Order $order,
         ?string $transaction_id = '',
     ): bool {
         if ($status) {
-            $order->add_order_note(__('PDT payment completed', 'woocommerce-payment-gateway-ccbill'));
+            $order->add_order_note(__('Payment completed', 'marianaerato'));
             $order->payment_complete($transaction_id);
             $order->set_status(OrderStatus::COMPLETED);
             $order->save();
