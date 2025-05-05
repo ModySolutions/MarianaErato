@@ -22,7 +22,8 @@ trait PayPerPost
         return get_posts($args);
     }
 
-    public function get_product_permalink_by_lang($product_id): string {
+    public function get_product_permalink_by_lang($product_id): string
+    {
         $linked_products = $this->get_posts_linked_to_product($product_id);
         $linked_post_id = reset($linked_products)->ID;
 

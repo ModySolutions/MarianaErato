@@ -30,7 +30,7 @@ class WooCommerce
             exit;
         }
 
-        if(is_product()) {
+        if (is_product()) {
             wp_safe_redirect($this->get_product_permalink_by_lang(get_the_ID()));
             exit;
         }
@@ -98,10 +98,10 @@ class WooCommerce
         }
     }
 
-    public function woocommerce_order_details_before_order_table(\WC_Order $order) : void
+    public function woocommerce_order_details_before_order_table(\WC_Order $order): void
     {
         $cache_hash = $_REQUEST['ch'] ?? false;
-        if($cache_hash && $order->is_paid()) {
+        if ($cache_hash && $order->is_paid()) {
             apply_filters('wc_cc_bill_set_order_status', OrderStatus::COMPLETED, $order);
             wp_safe_redirect($this->get_order_url($order));
             exit;
