@@ -19,7 +19,7 @@ mcloud-view-cache/
 **/twenty*
 mu-plugins
 plugins
-themes
+themes/twenty*
 uploads
 
 auth.json

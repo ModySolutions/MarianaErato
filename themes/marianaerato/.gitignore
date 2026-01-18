@@ -1,0 +1,7 @@
+.env
+.env*
+.DS_*
+/vendor/
+/node_modules/
+/dist/
+/blocks/
