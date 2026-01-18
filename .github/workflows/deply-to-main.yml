@@ -12,6 +12,13 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v3
 
+      - name: Mody Repository Auth
+        run: |
+          cp sample-auth.json auth.json
+          sed -i 's|"PLUGINS USERNAME"|"${{ secrets.PLUGINS_KEY }}"|g' auth.json
+          sed -i 's|"PLUGINS PASSWORD"|"${{ secrets.PLUGINS_PASSWORD }}"|g' auth.json
+          cat auth.json
+
       - name: Cache Vendor
         id: app-deploy-cache-vendor
         uses: actions/cache@v3

@@ -1,0 +1,8 @@
+{
+  "http-basic": {
+    "plugins.mody.cloud": {
+      "username": "PLUGINS USERNAME",
+      "password": "PLUGINS PASSWORD"
+    }
+  }
+}
