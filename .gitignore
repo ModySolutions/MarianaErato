@@ -21,3 +21,5 @@ mu-plugins
 plugins
 themes
 uploads
+
+auth.json
