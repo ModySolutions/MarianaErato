@@ -1,0 +1,2 @@
+<?php
+return ['messages'=>['7086e607ff58b2f59408e1826d47864e'=>'I recorded a bit of self-portraits the other day, and since it would be very difficult to censor it for uploading on social media, I decided to upload it here.','Grabé un poco de mientras me hacía autorretratos el otro día, y como sería muy difícil censurarlo para subirlo a redes, decidí subirlo por aquí.'=>'I recorded a bit of self-portraits the other day, and since it would be very difficult to censor it for uploading on social media, I decided to upload it here.']];

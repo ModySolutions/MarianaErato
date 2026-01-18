@@ -1,0 +1,2 @@
+<?php
+return ['messages'=>['5f65d115d9ce6a46d8453151f77601e5'=>'Lingerie: @iona.smith.scott','8966bce4af34bc2f7e52dcb3676005cd'=>'Hair: @stujaunce','Cabello: @stujaunce'=>'Hair: @stujaunce','Lencería: @iona.smith.scott'=>'Lingerie: @iona.smith.scott','Modelo: @ale_prads'=>'Model: @ale_prads','Sesión de fotos de lencería para marca en estudio'=>'Lingerie photoshoot for brand in studio','b62418fc9628b0c2a02228485a9991b1'=>'Lingerie photoshoot for brand in studio','ebfc204fc3b87e822654a632d6f3caa0'=>'Model: @ale_prads']];

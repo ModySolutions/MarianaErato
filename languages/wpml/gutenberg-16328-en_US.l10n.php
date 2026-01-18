@@ -1,0 +1,2 @@
+<?php
+return ['messages'=>['83325a7895b6752e2e480c4a2afa49ba'=>'Model and Stylist: @blxcxkmoon','8df439d6fa2b9a5eaf0df3dc3a68e77a'=>'Street photography','Modelo y Stylist: @blxcxkmoon'=>'Model and Stylist: @blxcxkmoon','Sesión de fotos con modelo en la calle street'=>'Photo session with model on the street','Street photography'=>'Street photography','bafbc24266703b22ef004476fc24b905'=>'Photo session with model on the street']];

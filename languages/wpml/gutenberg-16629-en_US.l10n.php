@@ -1,0 +1,2 @@
+<?php
+return ['messages'=>['1197374112558010d42c138caa0c5165'=>'Model: @ninaexotika','811fd836e7293c8d2f70fcae93a97996'=>'Photo shoot for lingerie brand with model in studio','8af989cc951be471f69e78ff84713345'=>'Lingerie: @kult_noir','Lencería: @kult_noir'=>'Lingerie: @kult_noir','Modelo: @ninaexotika'=>'Model: @ninaexotika','Sesión de fotos para marca de lencería con modelo en estudio'=>'Photo shoot for lingerie brand with model in studio']];

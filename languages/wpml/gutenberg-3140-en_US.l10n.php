@@ -1,0 +1,2 @@
+<?php
+return ['messages'=>['01edd5f7ec4963eea6117efd75fe9c65'=>'Not only did I meet my friend Magda again that day, but she also met herself again on that trip to Barcelona.','45ae9c8adaadb7e1ef5aa1762788a0e5'=>'Model: @solo.magda','Modelo: @solo.magda'=>'Model: @solo.magda','No solo me reencontré con mi amiga Magda ese día, sino que también, ella se reencontró a sí misma en ese viaje a Barcelona.'=>'Not only did I meet my friend Magda again that day, but she also met herself again on that trip to Barcelona.']];

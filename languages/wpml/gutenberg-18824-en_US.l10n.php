@@ -1,0 +1,2 @@
+<?php
+return ['messages'=>['0727bfb7a5a2ac980e3f53cc5526f77a'=>'Conscious nude photography workshop in studio with artificial light','2de5384482a4556c7999fa6c4d6abf41'=>'Model: @lemondejade','Espacio: @rodajesobservatorio'=>'Space: @rodajesobservatorio','Modelo: @lemondejade'=>'Model: @lemondejade','Workshop fotografía de desnudo consciente en estudio con luz artificial'=>'Conscious nude photography workshop in studio with artificial light','bd7a86dd00bb9a855e65dce4e9ce3631'=>'Space: @rodajesobservatorio']];

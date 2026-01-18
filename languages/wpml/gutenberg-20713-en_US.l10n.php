@@ -1,0 +1,2 @@
+<?php
+return ['messages'=>['29260d70cc449099a3d5b1690e467a17'=>'Photoshoot for Toonz Shop brand.','3ade358a474635663f7214ef8419736f'=>'Model: @Blxckmoon','Modelo: @Blxckmoon'=>'Model: @Blxckmoon','Sesión de fotos para marca de ropa, en interiores'=>'Indoor photoshoot for a clothing brand.','Sesión para la marca Toonz Shop.'=>'Photoshoot for Toonz Shop brand.','ed9332d28ed4b3b304229dddb9202745'=>'Indoor photoshoot for a clothing brand.']];

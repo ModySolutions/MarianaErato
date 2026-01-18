@@ -1,0 +1,2 @@
+<?php
+return ['messages'=>['<p>Gestiona tus preferencias y configuración.</p>'=>'<p>Manage your preferences and settings.</p>','Mi cuenta'=>'My account','[elementor-template id="19287"]'=>'[elementor-template id="19287"]','[newsletter_profile]'=>'[newsletter_profile]','editor-text-editor-7fe1922'=>'<p>Manage your preferences and settings.</p>','shortcode-shortcode-480196a'=>'[elementor-template id="19287"]','shortcode-shortcode-77cec4f'=>'[newsletter_profile]','title-heading-de47623'=>'My account']];

@@ -1,0 +1,2 @@
+<?php
+return ['messages'=>['<p>Gestiona tus preferencias y configuración.</p>'=>'<p>Manage your preferences and settings.</p>','Mi cuenta'=>'My account','[elementor-template id="19287"]'=>'[elementor-template id="19287"]','[wc-pay-for-post has_access="true"]'=>'[wc-pay-for-post has_access="true"]','editor-text-editor-61965a0'=>'<p>Manage your preferences and settings.</p>','shortcode-shortcode-0e1ef44'=>'[wc-pay-for-post has_access="true"]','shortcode-shortcode-ebc122b'=>'[elementor-template id="19287"]','title-heading-0b23088'=>'My account']];

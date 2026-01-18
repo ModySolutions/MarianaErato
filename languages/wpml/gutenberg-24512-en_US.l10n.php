@@ -1,0 +1,2 @@
+<?php
+return ['messages'=>['73acfcbe264511880962f19f76985ca5'=>'Photography: @danicanterophoto','8617e4103e0c286711ab5647d52588d3'=>'Edited by me. ','Edición por mí. '=>'Edited by me. ','Fotografías: @batallamariona'=>'Photography: @batallamariona','Fotografías: @danicanterophoto'=>'Photography: @danicanterophoto','Sesión de fotos erótica'=>'Erotic photoshoot','f55f94eee1b7214f51b476acdea16af7'=>'Erotic photoshoot','f718ac13d6e0aa4e32b143683403aa2d'=>'Photography: @batallamariona']];

@@ -1,0 +1,77 @@
+name: Build & Deploy to main
+
+on:
+  push:
+    branches: [ "develop" ]
+
+jobs:
+  web-deploy:
+    name: 🎉 Deploy to Mariana Erato's - Main branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: Cache Vendor
+        id: app-deploy-cache-vendor
+        uses: actions/cache@v3
+        env:
+          cache-name: app-deploy-cache-vendor
+        with:
+          path: vendor
+          key: app-deploy-vendor-${{ runner.os }}-${{ hashFiles('composer.lock') }}
+          restore-keys: |
+            app-deploy-vendor-${{ runner.os }}-
+
+      - name: Cache Node Modules
+        id: app-deploy-cache-node_modules
+        uses: actions/cache@v3
+        env:
+          cache-name: app-deploy-cache-node_modules
+        with:
+          path: node_modules
+          key: app-deploy-node_modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            app-deploy-node_modules-${{ runner.os }}-
+
+      - name: Composer Install
+        run: composer install --no-dev -o
+        if: steps.app-deploy-cache-vendor.outputs.cache-hit != 'true'
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ vars.PNPM_VERSION }}
+
+      - name: nvm use ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ vars.NODE_VERSION }}
+          cache: 'pnpm'
+
+      - name: pnpm install
+        run: pnpm install --prod
+        if: steps.app-deploy-cache-node_modules.outputs.cache-hit != 'true'
+
+      - name: pnpm build
+        run: pnpm build
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: 📂 Sync files to VPS using SSH
+        run: |
+          rsync -e "ssh -o StrictHostKeyChecking=no" -avz --no-times --update \
+          --exclude='node_modules' --exclude='package.json' --exclude='.git*' \
+          --exclude='src/scripts' --exclude='src/scss' --exclude='pint.json' \
+          --exclude='composer.lock' --exclude='sample*' --exclude='*.md' \
+          --exclude='*.yml' --exclude='*.yaml' \
+          --exclude='pnpm*' --exclude='wp-cli*' ./* ${{ vars.SSH_USER_SERVER }}:${{ vars.TARGET_DIR }} --verbose
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: 🛠 Copy files to their final destination and run post-deploy script
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER_SERVER }} "sudo /home/deploy/marianaerato/post-deploy"

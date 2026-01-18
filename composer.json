@@ -1,0 +1,82 @@
+{
+    "name": "modysolutions/marianaerato",
+    "description": "MarianaErato WordPress Theme",
+    "type": "project",
+    "repositories": {
+        "satispress": {
+            "type": "composer",
+            "url": "https://plugins.mody.cloud/satispress/"
+        },
+        "wpackagist": {
+            "type": "composer",
+            "url": "https://wpackagist.org",
+            "only": ["wpackagist-plugin/*", "wpackagist-theme/*"]
+        }
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.6",
+        "oscarotero/env": "^2.1",
+        "timber/timber": "^2.3",
+        "mody/acfml": "2.1.5",
+        "mody/advanced-custom-fields-pro": "6.6.2",
+        "wpackagist-plugin/askimet": "^5.3.5",
+        "mody/admin-columns-pro": "6.4.24",
+        "mody/complianz-gdpr-premium": "7.5.4.1",
+        "wpackagist-plugin/elementor": "^3.31.3",
+        "mody/elementor-pro": "3.34.0",
+        "wpackagist-plugin/envira-gallery-lite": "^3.31.3",
+        "wpackagist-plugin/ewww-image-optimizer": "^8.2.0",
+        "wpackagist-plugin/google-analytics-for-wordpress": "^9.11.1",
+        "wpackagist-plugin/tuxedo-big-file-uploads": "^2.1.7",
+        "wpackagist-plugin/ilab-media-tools": "^4.6.4",
+        "wpackagist-plugin/newsletter": "^9.1.0",
+        "wpackagist-plugin/post-smtp": "^3.7.0",
+        "wpackagist-plugin/redirection": "^5.6.1",
+        "mody/sitepress-multilingual-cms": "4.8.5",
+        "wpackagist-plugin/videojs-html5-player": "^1.1.13",
+        "wpackagist-plugin/w3-total-cache": "^2.9.1",
+        "wpackagist-plugin/woocommerce": "^10.4.3",
+        "wpackagist-plugin/woocommerce-multilingual": "^5.5.3.1",
+        "wpackagist-plugin/woocommerce-payment-gateway-ccbill": "^3.0.1",
+        "wpackagist-plugin/woocommerce-pay-per-post": "^3.2.31",
+        "mody/wordfence": "8.1.4",
+        "mody/wordfence-activator": "1.4.3",
+        "wpackagist-plugin/wordpress-seo": "^26.7",
+        "wpackagist-plugin/wp-crontrol": "^1.20.0",
+        "mody/wpml-cms-nav": "1.5.5",
+        "mody/wpml-string-translation": "3.4.1",
+        "mody/wp-seo-multilingual": "2.2.2",
+        "wpackagist-theme/hello-elementor": "3.4.5"
+    },
+    "require-dev": {
+        "laravel/pint": "^1.21"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "themes/marianaerato/app/"
+        }
+    },
+    "extra": {
+        "installer-paths": {
+            "plugins/{$name}/": ["type:wordpress-plugin"],
+            "themes/{$name}/": ["type:wordpress-theme"]
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    },
+    "authors": [
+        {
+            "name": "Javier Troya",
+            "email": "javiertroya@gmail.com"
+        }
+    ],
+    "scripts": {
+        "lint": "pint --test",
+        "lint:fix": "pint"
+    }
+}

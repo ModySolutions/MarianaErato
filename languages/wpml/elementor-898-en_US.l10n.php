@@ -1,0 +1,24 @@
+<?php
+return ['messages'=>['<p>J.</p><p>17 min. 38 seg.</p>'=>'<p>J.</p><p>17 min. 38 sec.</p>','<p>J.</p><p>7 min. 27 seg.</p>'=>'<p>J.</p><p>7 min. 27 sec.</p>','<p>M.</p><p>24 min. 27 seg.</p>'=>'<p>M.</p><p>24 min. 27 sec.</p>','<p>Proyecto</p>'=>'<p>Project</p>','<p>S.</p><p>3 min. 14 seg.</p>'=>'<p>S.</p><p>3 min. 14 sec.</p>','<p>S.</p><p>5 min. 44 seg.</p>'=>'<p>S.</p><p>5 min. 44 sec.</p>','<p>Si has disfrutado del contenido anterior, siéntete libre de compartirlo con quien creas que también puede gustarle. Si quieres colaborar de una manera aún más generosa, para ayudarme a que pueda continuar realizando ese tipo de proyectos, te dejo un botón donde podrás hacerlo:</p>'=>'<p>If you enjoyed the above content, feel free to share it with anyone you think might also like it. If you want to collaborate in an even more generous way, to help me to continue making this kind of projects, I leave you a button where you can do it:</p>','<p>V.</p><p>21 min. 47 seg.</p>'=>'<p>V.</p><p>21 min. 47 sec.</p>','<p>V.</p><p>5 min. 23 seg.</p>'=>'<p>V.</p><p>5 min. 23 sec.</p>','<p>¿De dónde nace el pudor?</p>
+<p>¿De dónde viene la vergüenza de lo que consideramos “privado” o “prohibido”?</p>
+<p>¿Está bien dejar ver la desnudez, siendo algo que todos compartimos?</p>
+<p>-</p>
+<p>Al intentar responder a estas preguntas, surge la necesidad de explorar la experiencia alrededor de la mera desnudez, y es justo eso lo que inspira este proyecto.<br>
+Con la intención de buscar ver más allá del cuerpo desnudo, he querido evidenciar el proceso del pudor que todos podemos experimentar de diversas formas, pero llegando al mismo resultado: La desnudez.&nbsp;</p>
+<p>Una desnudez ordinaria, natural, sin poses planificadas. Una desnudez como la de cualquiera, ahora a tu vista, pero no para tu disfrute, sino para la introspección.</p>
+<p></p>
+<p>Desde una mirada neutral, sin prejuicios, sin alabanzas, buscando mostrar la simple realidad, conectándote a ti, que estás viendo esto, con ese momento específico, buscando llevarlo al cuestionamiento.</p>'=>'<p>Where does modesty come from?</p>
+<p>Where does the shame of what we consider "private" or "forbidden" come from?</p>
+<p>Is it okay to let nudity show, being something we all share?</p>
+<p>-</p>
+<p>In trying to answer these questions, the need arises to explore the experience around mere nudity, and that is exactly what inspires this project.<br>  With the intention of seeking to see beyond the naked body, I wanted to show the process of modesty that we can all experience in different ways, but reaching the same result: Nudity.&nbsp;</p>
+<p>An ordinary, natural nudity, without planned poses. A nakedness like anyone else\'s, now in your sight, but not for your enjoyment, but for introspection.</p>
+<p></p>
+<p>From a neutral point of view, without prejudice, without praise, seeking to show the simple reality, connecting you, who are watching this, with that specific moment, seeking to question it.</p>','Donación'=>'Donation','Nudity'=>'Nudity','Separador'=>'Separator','editor-text-editor-25759bb'=>'<p>If you enjoyed the above content, feel free to share it with anyone you think might also like it. If you want to collaborate in an even more generous way, to help me to continue making this kind of projects, I leave you a button where you can do it:</p>','editor-text-editor-370922e'=>'<p>M.</p><p>24 min. 27 sec.</p>','editor-text-editor-45b930c'=>'<p>S.</p><p>3 min. 14 sec.</p>','editor-text-editor-59e0cde'=>'<p>J.</p><p>7 min. 27 sec.</p>','editor-text-editor-803d2b5'=>'<p>V.</p><p>21 min. 47 sec.</p>','editor-text-editor-8202c86'=>'<p>S.</p><p>5 min. 44 sec.</p>','editor-text-editor-931d773'=>'<p>J.</p><p>17 min. 38 sec.</p>','editor-text-editor-d06718d'=>'<p>Project</p>','editor-text-editor-df23cff'=>'<p>V.</p><p>5 min. 23 sec.</p>','editor-text-editor-f0b00d5'=>'<p>Where does modesty come from?</p>
+<p>Where does the shame of what we consider "private" or "forbidden" come from?</p>
+<p>Is it okay to let nudity show, being something we all share?</p>
+<p>-</p>
+<p>In trying to answer these questions, the need arises to explore the experience around mere nudity, and that is exactly what inspires this project.<br>  With the intention of seeking to see beyond the naked body, I wanted to show the process of modesty that we can all experience in different ways, but reaching the same result: Nudity.&nbsp;</p>
+<p>An ordinary, natural nudity, without planned poses. A nakedness like anyone else\'s, now in your sight, but not for your enjoyment, but for introspection.</p>
+<p></p>
+<p>From a neutral point of view, without prejudice, without praise, seeking to show the simple reality, connecting you, who are watching this, with that specific moment, seeking to question it.</p>','text-button-2073916'=>'Donation','text-divider-4655f1b'=>'Separator','text-divider-768c6e0'=>'Separator','title-heading-d4d8ce2'=>'Nudity']];

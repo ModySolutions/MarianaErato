@@ -1,0 +1,2 @@
+<?php
+return ['messages'=>['25e586de010e8b396184e47f6eeec82f'=>'Edited and directed by me.','Edición y dirección por mí.'=>'Edited and directed by me.','Grabación y fotografías: @josefa.iry'=>'Recording and photographs: @josefa.iry','Joyería: @marianaerato.store '=>'Jewelry: @marianaerato.store ','Sesión de fotos erótica'=>'Erotic photoshoot','b97adb424831736e16ee29f3d35bc6b0'=>'Jewelry: @marianaerato.store ','d77652b7b0d77769fd262bd372be7858'=>'Recording and photographs: @josefa.iry','f55f94eee1b7214f51b476acdea16af7'=>'Erotic photoshoot']];
