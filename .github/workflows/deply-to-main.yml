@@ -81,6 +81,6 @@ jobs:
 
       - name: 🛠 Copy files to their final destination and run post-deploy script
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER_SERVER }} "sudo /home/deploy/marianaerato/post-deploy"
+          ssh -o StrictHostKeyChecking=no ${{ vars.SSH_USER_SERVER }} "sudo /home/deploy/marianaerato/post-deploy"
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
