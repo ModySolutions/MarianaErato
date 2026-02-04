@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f8598709fc82a860ad4b3931223795f0",
+    "content-hash": "b90c9c886d2044ddd4a97bfae370cf5f",
     "packages": [
         {
             "name": "composer/installers",
@@ -997,16 +997,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v3.22.2",
+            "version": "v3.23.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "946ddeafa3c9f4ce279d1f34051af041db0e16f2"
+                "reference": "a64dc5d2cc7d6cafb9347f6cd802d0d06d0351c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/946ddeafa3c9f4ce279d1f34051af041db0e16f2",
-                "reference": "946ddeafa3c9f4ce279d1f34051af041db0e16f2",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/a64dc5d2cc7d6cafb9347f6cd802d0d06d0351c9",
+                "reference": "a64dc5d2cc7d6cafb9347f6cd802d0d06d0351c9",
                 "shasum": ""
             },
             "require": {
@@ -1060,7 +1060,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.22.2"
+                "source": "https://github.com/twigphp/Twig/tree/v3.23.0"
             },
             "funding": [
                 {
@@ -1072,7 +1072,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-12-14T11:28:47+00:00"
+            "time": "2026-01-23T21:00:41+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -1178,15 +1178,15 @@
         },
         {
             "name": "wpackagist-plugin/elementor",
-            "version": "3.34.1",
+            "version": "3.35.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elementor/",
-                "reference": "tags/3.34.1"
+                "reference": "tags/3.35.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elementor.3.34.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/elementor.3.35.1.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -1268,15 +1268,15 @@
         },
         {
             "name": "wpackagist-plugin/newsletter",
-            "version": "9.1.0",
+            "version": "9.1.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/newsletter/",
-                "reference": "tags/9.1.0"
+                "reference": "tags/9.1.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/newsletter.9.1.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/newsletter.9.1.2.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -1286,15 +1286,15 @@
         },
         {
             "name": "wpackagist-plugin/post-smtp",
-            "version": "3.7.0",
+            "version": "3.8.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/post-smtp/",
-                "reference": "tags/3.7.0"
+                "reference": "tags/3.8.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/post-smtp.3.7.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/post-smtp.3.8.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -1412,15 +1412,15 @@
         },
         {
             "name": "wpackagist-plugin/woocommerce-pay-per-post",
-            "version": "3.2.31",
+            "version": "3.2.33",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/woocommerce-pay-per-post/",
-                "reference": "tags/3.2.31"
+                "reference": "tags/3.2.33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/woocommerce-pay-per-post.3.2.31.zip"
+                "url": "https://downloads.wordpress.org/plugin/woocommerce-pay-per-post.3.2.33.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -1448,15 +1448,15 @@
         },
         {
             "name": "wpackagist-plugin/wordpress-seo",
-            "version": "26.7",
+            "version": "26.9",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wordpress-seo/",
-                "reference": "tags/26.7"
+                "reference": "tags/26.9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wordpress-seo.26.7.zip"
+                "url": "https://downloads.wordpress.org/plugin/wordpress-seo.26.9.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -1466,21 +1466,39 @@
         },
         {
             "name": "wpackagist-plugin/wp-crontrol",
-            "version": "1.20.0",
+            "version": "1.21.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-crontrol/",
-                "reference": "tags/1.20.0"
+                "reference": "tags/1.21.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-crontrol.1.20.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-crontrol.1.21.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wp-crontrol/"
+        },
+        {
+            "name": "wpackagist-plugin/wp-piwik",
+            "version": "1.0.31",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-piwik/",
+                "reference": "tags/1.0.31"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-piwik.1.0.31.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wp-piwik/"
         },
         {
             "name": "wpackagist-theme/hello-elementor",

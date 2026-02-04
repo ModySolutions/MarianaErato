@@ -43,6 +43,7 @@
         "mody/wordfence-activator": "1.4.3",
         "wpackagist-plugin/wordpress-seo": "^26.7",
         "wpackagist-plugin/wp-crontrol": "^1.20.0",
+        "wpackagist-plugin/wp-piwik": "^1.0.31",
         "mody/wpml-cms-nav": "1.5.5",
         "mody/wpml-string-translation": "3.4.1",
         "mody/wp-seo-multilingual": "2.2.2",
