@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b90c9c886d2044ddd4a97bfae370cf5f",
+    "content-hash": "004b69802e7df95f9a6e1d64608820b7",
     "packages": [
         {
             "name": "composer/installers",
@@ -381,6 +381,27 @@
             ],
             "description": "Wordfence Security Plugin Activator",
             "homepage": "https://www.gpltimes.com/"
+        },
+        {
+            "name": "mody/wp-migrate-db-pro",
+            "version": "2.7.7",
+            "dist": {
+                "type": "zip",
+                "url": "https://plugins.mody.cloud/satispress/wp-migrate-db-pro/2.7.7",
+                "shasum": "c8b67d132246c3363c8979abdb6f0fac15a69ec5"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "authors": [
+                {
+                    "name": "WP Engine",
+                    "homepage": "https://deliciousbrains.com"
+                }
+            ],
+            "description": "Migrate between any two environments. Push, pull, and export full sites. Find and replace content including serialized data. Import and back up the database.",
+            "homepage": "https://deliciousbrains.com/wp-migrate-db-pro/"
         },
         {
             "name": "mody/wp-seo-multilingual",
@@ -1178,15 +1199,15 @@
         },
         {
             "name": "wpackagist-plugin/elementor",
-            "version": "3.35.1",
+            "version": "3.35.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elementor/",
-                "reference": "tags/3.35.1"
+                "reference": "tags/3.35.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elementor.3.35.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/elementor.3.35.3.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -1376,15 +1397,15 @@
         },
         {
             "name": "wpackagist-plugin/woocommerce",
-            "version": "10.4.3",
+            "version": "10.5.0",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/woocommerce/",
-                "reference": "tags/10.4.3"
+                "reference": "tags/10.5.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/woocommerce.10.4.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/woocommerce.10.5.0.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
