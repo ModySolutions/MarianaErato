@@ -1,8 +1,11 @@
 name: Build & Deploy to main
 
 on:
-  push:
-    branches: [ "develop" ]
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
 
 jobs:
   web-deploy:

@@ -13,13 +13,13 @@ $current_price = number_format(get_post_meta($product_id, '_price', true), 2, ',
 $currency = get_woocommerce_currency();
 $currency_symbol = get_woocommerce_currency_symbol($currency) ?? '';
 $image = wp_get_attachment_image_src(get_post_thumbnail_id($product_id), 'single-post-thumbnail');
-if(str_contains($image[0], 'marianaerato.com')) {
+if(str_contains($image[0] ?? '', 'marianaerato.com')) {
 	$image = str_replace('wordpress/', '', $image);
 }
 $text = get_field('buy_this_post_text', 'option') ?? 'Buy this post for %s';
 $color = get_field('sales_text_color', $product_id);
 ?>
-<style>.mm-background { background-image: url(<?php echo $image[0]; ?>); }</style>
+<style>.mm-background { background-image: url(<?php echo $image[0] ?? ''; ?>); }</style>
 <div <?php wc_product_class('mm--product_content', $product); ?>>
   <div class='mm-background'>&nbsp;</div>
   <div class='mm-background-overlay'>&nbsp;</div>
