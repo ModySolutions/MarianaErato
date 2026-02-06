@@ -19,7 +19,7 @@ class Settings
             'page_title' => __('Mariana Erato', APP_THEME_DOMAIN),
             'menu_slug' => 'mariana-erato',
             'parent_slug' => 'options-general.php',
-            'position' => '',
+            'position' => 0,
             'redirect' => false,
         ]);
     }
@@ -159,14 +159,14 @@ class Settings
                 ],
                 [
                     'key' => 'field_8493h92kshufd7',
-                    'label' => __('Subscription membership product category', APP_THEME_DOMAIN),
-                    'name' => 'subscription_membership_product_category',
+                    'label' => __('Sponsorship product category', APP_THEME_DOMAIN),
+                    'name' => 'subscription_sponsorship_product_category',
                     'aria-label' => '',
                     'type' => 'taxonomy',
                     'taxonomy' => 'product_cat',
                     'return_format' => 'id',
                     'add_term' => 1,
-                    'instructions' => __('Products in this category will be used as subscription membership.', APP_THEME_DOMAIN),
+                    'instructions' => __('Products in this category will be used as sponsorship.', APP_THEME_DOMAIN),
                     'save_terms' => 0,
                     'load_terms' => 0,
                     'field_type' => 'select',
