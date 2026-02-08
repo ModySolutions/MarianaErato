@@ -13,6 +13,8 @@ $private_gallery_post_tag = get_field('private_gallery_post_tag', 'option');
 $bts_post_tag = get_field('bts_post_tag', 'option');
 $field_purchased_page = get_field('field_purchased_page', 'option', false);
 $field_exclusive_content_page = get_field('field_exclusive_content_page', 'option', false);
+$css_file = new Post($template_id);
+$css_file->enqueue();
 ?>
 <div class="mm-purchased">
     <?php
@@ -27,17 +29,20 @@ $field_exclusive_content_page = get_field('field_exclusive_content_page', 'optio
                     return false;
                 }
             } else if($page_id === (int)$field_exclusive_content_page) {
-              return false;
-//                if ( !has_term($private_gallery_post_tag, 'post_tag', $id) &&
-//                    !has_term($bts_post_tag, 'post_tag', $id) ) {
-//                    return false;
-//                }
+                if ( !has_term($private_gallery_post_tag, 'post_tag', $id) &&
+                    !has_term($bts_post_tag, 'post_tag', $id) ) {
+                    return false;
+                }
             }
             return true;
         });
       $classname = $posts ? 'mm-purchased__list' : ''; ?>
-      <h3><?php
-          _e('Purchased Exclusive Content'); ?></h3>
+      <h3>
+          <?php _e(
+              sprintf('%s Content', $field_exclusive_content_page === $page_id ? 'Exclusive' : 'Purchased'),
+              APP_THEME_DOMAIN
+          ); ?>
+      </h3>
       <div class='<?php echo $classname;?>'>
           <?php
           if ($posts):
@@ -62,15 +67,17 @@ $field_exclusive_content_page = get_field('field_exclusive_content_page', 'optio
               endforeach;
           else:
               $product_template = get_field('pay_per_post_product_template', 'option');
-              if ($product_template) {
-                  echo do_shortcode('[elementor-template id="' . $product_template . '"]');
+              if ($product_template && did_action('elementor/loaded')) {
+                echo Plugin::instance()->frontend->get_builder_content_for_display($product_template);
               }?>
           <?php endif; ?>
       </div>
     <?php
     else:
-        $pay_per_post_product_template = get_field('pay_per_post_product_template', 'option', false);
-        echo Plugin::instance()->frontend->get_builder_content_for_display($template_id, true); ?>
+        $product_template = get_field('pay_per_post_product_template', 'option');
+        if ($product_template && did_action('elementor/loaded')) {
+            echo Plugin::instance()->frontend->get_builder_content_for_display($product_template);
+        }?>
     <?php
     endif;
     ?>
