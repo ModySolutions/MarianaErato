@@ -18,13 +18,11 @@ class Blog {
             $private_tag = get_field('private_gallery_post_tag', 'option');
             $bts_post_tag = get_field('bts_post_tag', 'option');
 
-            if (!$private_tag && $bts_post_tag) {
-                return;
-            }
+            $terms = array_filter(array($private_tag ?? false, $bts_post_tag ?? false));
 
             $has_access = current_user_can('administrator');
 
-            if (!$has_access) {
+            if (!$has_access && count($terms) > 0) {
                 $tax_query = (array) $query->get('tax_query');
                 $tax_query[] = array(
                     'taxonomy' => 'post_tag',
