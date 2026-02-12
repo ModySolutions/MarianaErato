@@ -10,6 +10,8 @@ ewww/
 logs/
 mcloud-reports/
 mcloud-view-cache/
+**/cache
+**/*config
 
 **/wflogs
 **/wpvivid*
