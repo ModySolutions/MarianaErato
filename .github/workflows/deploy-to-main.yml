@@ -22,31 +22,8 @@ jobs:
           sed -i 's|"PLUGINS PASSWORD"|"${{ secrets.PLUGINS_PASSWORD }}"|g' auth.json
           cat auth.json
 
-      - name: Cache Vendor
-        id: app-deploy-cache-vendor
-        uses: actions/cache@v3
-        env:
-          cache-name: app-deploy-cache-vendor
-        with:
-          path: vendor
-          key: app-deploy-vendor-${{ runner.os }}-${{ hashFiles('composer.lock') }}
-          restore-keys: |
-            app-deploy-vendor-${{ runner.os }}-
-
-      - name: Cache Node Modules
-        id: app-deploy-cache-node_modules
-        uses: actions/cache@v3
-        env:
-          cache-name: app-deploy-cache-node_modules
-        with:
-          path: node_modules
-          key: app-deploy-node_modules-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
-          restore-keys: |
-            app-deploy-node_modules-${{ runner.os }}-
-
       - name: Composer Install
         run: composer install --no-dev -o
-        if: steps.app-deploy-cache-vendor.outputs.cache-hit != 'true'
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -61,7 +38,6 @@ jobs:
 
       - name: pnpm install
         run: pnpm install --prod
-        if: steps.app-deploy-cache-node_modules.outputs.cache-hit != 'true'
 
       - name: pnpm build
         run: pnpm build
