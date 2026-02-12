@@ -42,7 +42,7 @@ jobs:
       - name: pnpm build
         run: pnpm build
 
-      - name: Set up SSH
+      - name: ⚙️ Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -58,7 +58,7 @@ jobs:
           --exclude='pint.json' \
           --exclude='sample*' \
           --exclude='*.md' \
-          ./ ${{ vars.SSH_USER_SERVER }}:${{ vars.PROD_TARGET_DIR }}
+          ./ ${{ vars.SSH_USER_SERVER }}:${{ vars.TARGET_DIR }}
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
