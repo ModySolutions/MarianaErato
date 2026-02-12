@@ -123,8 +123,8 @@ class WooCommerce {
 
         $items = $order->get_items();
         $product_id = reset($items)->get_product_id();
-        $sponsorship_product_category = get_field('subscription_membership_product_category', 'option');
-        if (has_term($sponsorship_product_category, 'product_cat', $product_id)) {
+        $sponsorship_product_category = get_field('subscription_sponsorship_product_category', 'option');
+        if ($sponsorship_product_category && has_term($sponsorship_product_category, 'product_cat', $product_id)) {
             $this->assign_sponsorship_to_user($order->get_user_id(), $product_id);
         }
     }
