@@ -49,7 +49,7 @@ jobs:
 
       - name: 📂 Sync files to VPS using SSH
         run: |
-          rsync -avz --no-times --update --delete \
+          rsync -e "ssh -o StrictHostKeyChecking=no" -avz --no-times --update --delete \
           --exclude='.nvmrc' \
           --exclude='**/node_modules' \
           --exclude='.git*' \
