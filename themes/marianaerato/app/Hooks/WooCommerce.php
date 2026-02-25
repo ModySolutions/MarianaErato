@@ -84,6 +84,7 @@ class WooCommerce {
         $redirect_url = $order->get_view_order_url();
         if ($order->is_paid()) {
             $redirect_url = $this->get_order_url($order);
+            $order->save();
         }
         wp_safe_redirect($redirect_url);
     }
