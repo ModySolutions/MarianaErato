@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ae13da5e1b68408531bb7b6807e6bcad",
+    "content-hash": "aba750d2045c7e0ce3dc0256b57d30df",
     "packages": [
         {
             "name": "composer/installers",
@@ -1220,15 +1220,15 @@
         },
         {
             "name": "wpackagist-plugin/elementor",
-            "version": "3.35.5",
+            "version": "3.35.4",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/elementor/",
-                "reference": "tags/3.35.5"
+                "reference": "tags/3.35.4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/elementor.3.35.5.zip"
+                "url": "https://downloads.wordpress.org/plugin/elementor.3.35.4.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -1271,42 +1271,6 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/ewww-image-optimizer/"
-        },
-        {
-            "name": "wpackagist-plugin/google-analytics-for-wordpress",
-            "version": "9.11.1",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/google-analytics-for-wordpress/",
-                "reference": "tags/9.11.1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/google-analytics-for-wordpress.9.11.1.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/google-analytics-for-wordpress/"
-        },
-        {
-            "name": "wpackagist-plugin/ilab-media-tools",
-            "version": "4.6.4",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/ilab-media-tools/",
-                "reference": "tags/4.6.4"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/ilab-media-tools.4.6.4.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/ilab-media-tools/"
         },
         {
             "name": "wpackagist-plugin/newsletter",
@@ -1436,15 +1400,15 @@
         },
         {
             "name": "wpackagist-plugin/woocommerce-pay-per-post",
-            "version": "3.2.33",
+            "version": "3.2.31",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/woocommerce-pay-per-post/",
-                "reference": "tags/3.2.33"
+                "reference": "tags/3.2.31"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/woocommerce-pay-per-post.3.2.33.zip"
+                "url": "https://downloads.wordpress.org/plugin/woocommerce-pay-per-post.3.2.31.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
@@ -1472,57 +1436,21 @@
         },
         {
             "name": "wpackagist-plugin/wordpress-seo",
-            "version": "26.9",
+            "version": "26.7",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wordpress-seo/",
-                "reference": "tags/26.9"
+                "reference": "tags/26.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wordpress-seo.26.9.zip"
+                "url": "https://downloads.wordpress.org/plugin/wordpress-seo.26.7.zip"
             },
             "require": {
                 "composer/installers": "^1.0 || ^2.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/wordpress-seo/"
-        },
-        {
-            "name": "wpackagist-plugin/wp-crontrol",
-            "version": "1.21.0",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/wp-crontrol/",
-                "reference": "tags/1.21.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-crontrol.1.21.0.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/wp-crontrol/"
-        },
-        {
-            "name": "wpackagist-plugin/wp-piwik",
-            "version": "1.0.31",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/wp-piwik/",
-                "reference": "tags/1.0.31"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-piwik.1.0.31.zip"
-            },
-            "require": {
-                "composer/installers": "^1.0 || ^2.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/wp-piwik/"
         },
         {
             "name": "wpackagist-theme/hello-elementor",
@@ -1628,6 +1556,24 @@
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/query-monitor/"
+        },
+        {
+            "name": "wpackagist-plugin/wp-crontrol",
+            "version": "1.20.0",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wp-crontrol/",
+                "reference": "tags/1.20.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-crontrol.1.20.0.zip"
+            },
+            "require": {
+                "composer/installers": "^1.0 || ^2.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/wp-crontrol/"
         }
     ],
     "aliases": [],
