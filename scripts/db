@@ -2,7 +2,7 @@
 
 ROOT_DIR=$(pwd)
 COMMAND="${2:-import}"
-DB="${3:-ei}"
+DB="${3:-wp}"
 
 START_TIME_SECONDS=$(date +%s)
 START_TIME_HUMAN=$(date "+%Y-%m-%d %H:%M:%S")
@@ -44,10 +44,10 @@ ENV_FILE="${ROOT_DIR}/.env"
 if [ -f "$ENV_FILE" ]; then
     source $ENV_FILE
 fi
-
+FILE_NAME="db.backup.sql"
 if [[ "$COMMAND" == "pull" || "$COMMAND" == "download" ]]; then
   log_message "INFO" "Downloading ${DB} database..."
-  if [ "$ENVIRONMENT" == "stage" ]; then
+  if [ "$ENVIRONMENT" == "local" ]; then
       REMOTE_HOST="$SSH_HOST_PRODUCTION"
       PREFIX=""
   else
@@ -60,23 +60,13 @@ if [[ "$COMMAND" == "pull" || "$COMMAND" == "download" ]]; then
       exit 1
   fi
 
-  REMOTE_PATH="/etc/dumps"
+  REMOTE_PATH="/mnt/backups/marianaerato"
   LOCAL_PATH="$ROOT_DIR/dumps"
 
   log_message "INFO" "mkdir -p ${LOCAL_PATH}"
   mkdir -p "$LOCAL_PATH"
 
-  case "$DB" in
-      ei|ti|ci|cti)
-          DB_NAME="${DB}_db"
-          ;;
-      *)
-          log_message "DANGER" "Parameters are ei|ti|ci|cti"
-          exit 1
-          ;;
-  esac
-
-  FILE_NAME="${DB_NAME}.sql"
+  DB_NAME="wp_db"
 
   log_message "INFO" "Pulling ${DB_NAME} database from ${REMOTE_HOST}"
   log_message "INFO" "rsync -avzP ${REMOTE_HOST}:${REMOTE_PATH}/${FILE_NAME} $LOCAL_PATH/"
@@ -99,42 +89,26 @@ if [[ "$COMMAND" == "pull" || "$COMMAND" == "download" ]]; then
 fi
 
 log_message "INFO" "Importing database into container..."
-log_message "INFO" "bash ${ROOT_DIR}/scripts/wp @${DB} db import /var/www/html/wp-content/dumps/${DB}_db.sql"
+log_message "INFO" "bash ${ROOT_DIR}/scripts/wp @app db import /var/www/html/wp-content/dumps/${FILE_NAME}"
 
-if bash ${ROOT_DIR}/scripts/wp @$DB db import /var/www/html/wp-content/dumps/${DB}_db.sql; then
+if bash ${ROOT_DIR}/scripts/wp @app db import /var/www/html/wp-content/dumps/${FILE_NAME}; then
     log_message "SUCCESS" "Database ${DB_NAME} imported successfully to ${ENVIRONMENT} environment"
 else
     log_message "DANGER" "Database import failed! Check if mysql-client is installed in the container."
     exit 1
 fi
 
-case "$DB" in
-    ei)
-        SITE="ecigintelligence"
-        ;;
-    ti)
-        SITE="tobaccointelligence"
-        ;;
-    ci)
-        SITE="cannintelligence"
-        ;;
-    cti)
-        SITE="tamarindintelligence"
-        ;;
-    *)
-esac
+log_message "INFO" "Replacing URL from ${SITE}.com to ${ENVIRONMENT_DOMAIN}..."
+log_message "INFO" "bash ${ROOT_DIR}/scripts/wp @app search-replace '${SITE}' '${ENVIRONMENT_DOMAIN}'"
 
-log_message "INFO" "Replacing URL from ${PREFIX}${SITE}.com to ${ENVIRONMENT_DOMAIN}..."
-log_message "INFO" "bash ${ROOT_DIR}/scripts/wp @$DB search-replace '://${PREFIX}${SITE}.com' '://${ENVIRONMENT_DOMAIN}'"
-
-if bash ${ROOT_DIR}/scripts/wp @$DB search-replace "://${PREFIX}${SITE}.com" "://${ENVIRONMENT_DOMAIN}"; then
-  log_message "SUCCESS" "URL replaced from ${PREFIX}${SITE}.com to ${ENVIRONMENT_DOMAIN} successfully"
+if bash ${ROOT_DIR}/scripts/wp @app search-replace "${SITE}" "${ENVIRONMENT_DOMAIN}"; then
+  log_message "SUCCESS" "URL replaced from ${SITE} to ${ENVIRONMENT_DOMAIN} successfully"
 else
-  log_message "DANGER" "There was an error changing URL from ${PREFIX}${SITE}.com to ${ENVIRONMENT_DOMAIN}"
+  log_message "DANGER" "There was an error changing URL from ${SITE} to ${ENVIRONMENT_DOMAIN}"
   exit 1;
 fi
 
-log_message "SUCCESS" "URL replaced successfully from ${PREFIX}${SITE}.com to ${ENVIRONMENT_DOMAIN}"
+log_message "SUCCESS" "URL replaced successfully from ${SITE} to ${ENVIRONMENT_DOMAIN}"
 
 END_TIME_SECONDS=$(date +%s)
 END_TIME_HUMAN=$(date "+%Y-%m-%d %H:%M:%S")

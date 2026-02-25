@@ -138,7 +138,7 @@ class WooCommerce {
         }
 
         if($private_gallery_status !== 'none') {
-            $this->{"set_pg_{$private_gallery_status}_access"}($user_id, $fields, 'gallery');
+            $this->set_pg_content_access($user_id, $fields, 'gallery');
         }
 
         if($behind_the_video_status !== 'none') {
@@ -157,10 +157,10 @@ class WooCommerce {
         $video_post_tag = get_field('video_post_tag', 'option');
         $gallery_post_tag = get_field('gallery_post_tag', 'option');
 
-        $videos = $this->_get_protected_post($amount_of_videos, $video_post_tag, $paid_post_category);
+        $videos = $this->_get_protected_post($amount_of_videos ?? 0, $video_post_tag, $paid_post_category);
         $this->_get_products_from_posts($videos);
 
-        $galleries = $this->_get_protected_post($amount_of_galleries, $gallery_post_tag, $paid_post_category);
+        $galleries = $this->_get_protected_post($amount_of_galleries ?? 0, $gallery_post_tag, $paid_post_category);
         $this->_get_products_from_posts($galleries);
     }
 
@@ -169,7 +169,7 @@ class WooCommerce {
 
         $private_gallery_post_tag = get_field('private_gallery_post_tag', 'option');
 
-        $private_galleries = $this->_get_protected_post($private_gallery_amount_of_galleries, $private_gallery_post_tag);
+        $private_galleries = $this->_get_protected_post($private_gallery_amount_of_gallery_pictures, $private_gallery_post_tag);
         $this->_get_products_from_posts($private_galleries);
     }
 
