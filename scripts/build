@@ -1,0 +1,51 @@
+#!/bin/bash
+
+ENV_MODE=${1:-stage}
+ROOT_DIR=$(pwd)
+
+GULP_PATHS=(
+    "plugins/tamarind-base/"
+    "plugins/tamarind-favourites/"
+    "plugins/tamarind-forms/"
+    "plugins/tamarind-notifications/"
+    "plugins/tamarind-search/"
+    "plugins/tamarind-user-area/"
+    "plugins/tamarind-user-home/"
+    "plugins/tamarind-company-news/"
+    "plugins/tamarind-events/"
+    "plugins/tamarind-reports/"
+    "plugins/tamarind-subscriptions/"
+    "themes/ecig-intelligence-theme"
+    "themes/tobacco-intelligence-theme"
+    "themes/cann-intelligence-theme"
+    "themes/tamarind-intelligence-theme"
+)
+
+if [ "$ENV_MODE" == "prod" ]; then
+    COMPOSER_FLAGS="--no-dev --optimize-autoloader"
+else
+    COMPOSER_FLAGS="--optimize-autoloader"
+fi
+
+for DIR in "${GULP_PATHS[@]}"; do
+    echo "Processing assets in $DIR using $ENV_MODE mode..."
+    cd "$DIR" || exit
+    rm -rf ./node_modules
+    npm install
+    if [ -f "./node_modules/.bin/gulp" ]; then
+        ./node_modules/.bin/gulp build
+    else
+        npx gulp build
+    fi
+    cd "$ROOT_DIR" || exit
+done
+
+echo "Installing root Composer dependencies using $ENV_MODE..."
+composer install $COMPOSER_FLAGS
+
+echo "Installing specific plugin dependencies using $ENV_MODE..."
+composer install --working-dir="plugins/omitsis-location-detector" $COMPOSER_FLAGS
+composer install --working-dir="plugins/omitsis-tableau" $COMPOSER_FLAGS
+composer install --working-dir="plugins/tamarind-pdfs" $COMPOSER_FLAGS
+
+echo "Build complete."

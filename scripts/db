@@ -1,0 +1,148 @@
+#!/bin/bash
+
+ROOT_DIR=$(pwd)
+COMMAND="${2:-import}"
+DB="${3:-ei}"
+
+START_TIME_SECONDS=$(date +%s)
+START_TIME_HUMAN=$(date "+%Y-%m-%d %H:%M:%S")
+
+log_message() {
+  local TYPE=$1
+  local MESSAGE=$2
+
+  # Define Colors
+  local GREEN='\033[0;32m'
+  local BLUE='\033[0;34m'
+  local YELLOW='\033[1;33m'
+  local RED='\033[0;31m'
+  local NC='\033[0m' # No Color
+
+  case "$TYPE" in
+    "SUCCESS")
+      printf "${GREEN}[SUCCESS]${NC} %s\n" "$MESSAGE"
+      ;;
+    "INFO")
+      printf "${BLUE}[INFO]${NC} %s\n" "$MESSAGE"
+      ;;
+    "WARNING")
+      printf "${YELLOW}[WARNING]${NC} %s\n" "$MESSAGE"
+      ;;
+    "DANGER")
+      printf "${RED}[DANGER]${NC} %s\n" "$MESSAGE"
+      ;;
+    *)
+      printf "%s\n" "$MESSAGE"
+      ;;
+  esac
+}
+
+log_message "INFO" "Starting DB command at ${START_TIME_HUMAN}"
+
+ENV_FILE="${ROOT_DIR}/.env"
+
+if [ -f "$ENV_FILE" ]; then
+    source $ENV_FILE
+fi
+
+if [[ "$COMMAND" == "pull" || "$COMMAND" == "download" ]]; then
+  log_message "INFO" "Downloading ${DB} database..."
+  if [ "$ENVIRONMENT" == "stage" ]; then
+      REMOTE_HOST="$SSH_HOST_PRODUCTION"
+      PREFIX=""
+  else
+      REMOTE_HOST="$SSH_HOST_STAGE"
+      PREFIX="stage."
+  fi
+
+  if [ -z "$REMOTE_HOST" ]; then
+      log_message "DANGER" "Unable to determine remote host from $ENV_FILE"
+      exit 1
+  fi
+
+  REMOTE_PATH="/etc/dumps"
+  LOCAL_PATH="$ROOT_DIR/dumps"
+
+  log_message "INFO" "mkdir -p ${LOCAL_PATH}"
+  mkdir -p "$LOCAL_PATH"
+
+  case "$DB" in
+      ei|ti|ci|cti)
+          DB_NAME="${DB}_db"
+          ;;
+      *)
+          log_message "DANGER" "Parameters are ei|ti|ci|cti"
+          exit 1
+          ;;
+  esac
+
+  FILE_NAME="${DB_NAME}.sql"
+
+  log_message "INFO" "Pulling ${DB_NAME} database from ${REMOTE_HOST}"
+  log_message "INFO" "rsync -avzP ${REMOTE_HOST}:${REMOTE_PATH}/${FILE_NAME} $LOCAL_PATH/"
+
+  if rsync -avzP "${REMOTE_HOST}:${REMOTE_PATH}/${FILE_NAME}" "$LOCAL_PATH/"; then
+    log_message "SUCCESS" "Database downloaded successfully to ${LOCAL_PATH}"
+  else
+    log_message "DANGER" "Database download failed"
+    exit 1
+  fi
+
+  if [ "$(stat -c '%u' "$LOCAL_PATH/$FILE_NAME")" == "0" ]; then
+      sudo chown 82:82 "$LOCAL_PATH/" -R
+      log_message "SUCCESS" "Ownership fixed for $FILE_NAME"
+  fi
+
+  if [ "$COMMAND" == "download" ]; then
+    exit 0
+  fi
+fi
+
+log_message "INFO" "Importing database into container..."
+log_message "INFO" "bash ${ROOT_DIR}/scripts/wp @${DB} db import /var/www/html/wp-content/dumps/${DB}_db.sql"
+
+if bash ${ROOT_DIR}/scripts/wp @$DB db import /var/www/html/wp-content/dumps/${DB}_db.sql; then
+    log_message "SUCCESS" "Database ${DB_NAME} imported successfully to ${ENVIRONMENT} environment"
+else
+    log_message "DANGER" "Database import failed! Check if mysql-client is installed in the container."
+    exit 1
+fi
+
+case "$DB" in
+    ei)
+        SITE="ecigintelligence"
+        ;;
+    ti)
+        SITE="tobaccointelligence"
+        ;;
+    ci)
+        SITE="cannintelligence"
+        ;;
+    cti)
+        SITE="tamarindintelligence"
+        ;;
+    *)
+esac
+
+log_message "INFO" "Replacing URL from ${PREFIX}${SITE}.com to ${ENVIRONMENT_DOMAIN}..."
+log_message "INFO" "bash ${ROOT_DIR}/scripts/wp @$DB search-replace '://${PREFIX}${SITE}.com' '://${ENVIRONMENT_DOMAIN}'"
+
+if bash ${ROOT_DIR}/scripts/wp @$DB search-replace "://${PREFIX}${SITE}.com" "://${ENVIRONMENT_DOMAIN}"; then
+  log_message "SUCCESS" "URL replaced from ${PREFIX}${SITE}.com to ${ENVIRONMENT_DOMAIN} successfully"
+else
+  log_message "DANGER" "There was an error changing URL from ${PREFIX}${SITE}.com to ${ENVIRONMENT_DOMAIN}"
+  exit 1;
+fi
+
+log_message "SUCCESS" "URL replaced successfully from ${PREFIX}${SITE}.com to ${ENVIRONMENT_DOMAIN}"
+
+END_TIME_SECONDS=$(date +%s)
+END_TIME_HUMAN=$(date "+%Y-%m-%d %H:%M:%S")
+ELAPSED_TOTAL=$((END_TIME_SECONDS - START_TIME_SECONDS))
+ELAPSED_MIN=$((ELAPSED_TOTAL / 60))
+ELAPSED_SEC=$((ELAPSED_TOTAL % 60))
+
+echo ""
+log_message "INFO" "Ending DB command at ${END_TIME_HUMAN}"
+log_message "INFO" "Elapsed time: ${ELAPSED_MIN}:$(printf "%02d" $ELAPSED_SEC)"
+exit 0

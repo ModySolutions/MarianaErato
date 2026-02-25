@@ -1,0 +1,12 @@
+path: /var/www/html
+
+@ei:
+  ssh: docker:www-data@tamarind-web-suite-application-1
+@ci:
+  ssh: docker:www-data@tamarind-web-suite-application-1
+@tobi:
+  ssh: docker:www-data@tamarind-web-suite-application-1
+@ti:
+  ssh: docker:www-data@tamarind-web-suite-application-1
+@tamarind:
+  ssh: docker:www-data@tamarind-web-suite-application-1
