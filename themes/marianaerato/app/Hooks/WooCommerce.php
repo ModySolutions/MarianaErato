@@ -8,9 +8,11 @@ class WooCommerce {
     use \App\Features\WooCommerce;
 
     var array $items;
+    var ?\WC_Order $order;
 
     public function __construct() {
         $this->items = array();
+        $this->order = null;
     }
 
     public function init(): void {
@@ -18,8 +20,7 @@ class WooCommerce {
         add_action('woocommerce_checkout_order_created', [$this, 'woocommerce_checkout_order_created'], 10, 2);
         add_action('wc_cc_bill_order_redirect', [$this, 'wc_cc_bill_order_redirect'], 10, 3);
         add_action('woocommerce_thankyou_wc_gateway_ccbill', [$this, 'woocommerce_thankyou_wc']);
-        add_action('woocommerce_order_details_before_order_table',
-            [$this, 'woocommerce_order_details_before_order_table']);
+        add_action('woocommerce_order_details_before_order_table', [$this, 'woocommerce_order_details_before_order_table']);
         add_action('wc_mm_assign_purchased_posts', [$this, 'wc_mm_assign_purchased_posts']);
         add_action('woocommerce_order_status_changed', [$this, 'wc_mm_assign_purchased_posts']);
 
@@ -77,14 +78,12 @@ class WooCommerce {
         $product_url = get_permalink($product_id);
         $order->update_meta_data('product_url', $product_url);
         $order->update_meta_data('product_id', $product_id);
-        $order->save();
     }
 
     public function wc_cc_bill_order_redirect(\WC_Order $order): void {
         $redirect_url = $order->get_view_order_url();
         if ($order->is_paid()) {
             $redirect_url = $this->get_order_url($order);
-            $order->save();
         }
         wp_safe_redirect($redirect_url);
     }
@@ -125,6 +124,7 @@ class WooCommerce {
         $items = $order->get_items();
         $product_id = reset($items)->get_product_id();
         $sponsorship_product_category = get_field('subscription_sponsorship_product_category', 'option');
+        $this->order = $order;
         if ($sponsorship_product_category && has_term($sponsorship_product_category, 'product_cat', $product_id)) {
             $this->assign_sponsorship_to_user($order->get_user_id(), $product_id);
         }
@@ -217,10 +217,15 @@ class WooCommerce {
         foreach ($this->items as $product_id) {
             $new_order->add_product(wc_get_product($product_id), 1);
         }
+
         $new_order->set_customer_id($user_id);
         $new_order->calculate_totals();
 
         $subtotal = $new_order->get_subtotal();
+
+        $new_order->set_billing($this->order->get_address('billing'));
+        $new_order->set_billing_first_name($this->order->get_billing_first_name());
+        $new_order->set_billing_last_name($this->order->get_billing_last_name());
 
         $new_order->set_discount_total($subtotal);
         $new_order->set_discount_tax(0);
@@ -272,14 +277,34 @@ class WooCommerce {
     }
 
     private function _get_products_from_posts(array $posts): void {
+        $items = array();
         if ($posts) {
             foreach ($posts as $post_id) {
                 $products_data = \Woocommerce_Pay_Per_Post_Helper::get_product_ids_by_post_id($post_id);
                 if ($products_data['product_ids']) {
-                    $this->items = array_merge($this->items, $products_data['product_ids']);
+                    $items = array_merge($items, $products_data['product_ids']);
                 }
             }
         }
+        $items = array_filter($items, function($item){
+            $language_info = apply_filters('wpml_post_language_details', null, $item);
+            if ($language_info) {
+                $language_code = $language_info['language_code'];
+            } else {
+                $language_code = 'en';
+            }
+            $current_language = apply_filters('wpml_current_language', NULL);
+            return $language_code === $current_language;
+        });
+
+        $items = array_filter($items, function($item){
+            $sponsorship_product_category = get_field('subscription_sponsorship_product_category', 'option');
+            return !has_term($sponsorship_product_category, 'product_cat', $item);
+        });
+
+        $items = array_unique($items);
+        sort($items);
+        $this->items = array_merge($this->items, $items);
     }
 
     public function wc_cc_bill_set_order_status(
@@ -291,7 +316,6 @@ class WooCommerce {
             $order->add_order_note(__('Payment completed', 'marianaerato'));
             $order->payment_complete($transaction_id);
             $order->set_status(OrderStatus::COMPLETED);
-            $order->save();
             do_action('wc_mm_assign_purchased_posts', $order->get_id());
         }
         return $status;
