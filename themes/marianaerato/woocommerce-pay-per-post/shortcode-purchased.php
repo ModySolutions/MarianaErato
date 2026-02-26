@@ -23,6 +23,18 @@ $css_file->enqueue();
         $posts = array_filter($purchased, function ($post) use ($private_gallery_post_tag, $bts_post_tag, $page_id,
             $field_purchased_page, $field_exclusive_content_page) {
             $id = (is_int($post)) ? $post : $post->ID;
+            $language_info = apply_filters('wpml_post_language_details', null, $id);
+            if ($language_info) {
+                $language_code = $language_info['language_code'];
+                $display_name = $language_info['display_name'];
+            } else {
+                $language_code = 'en';
+                $display_name = 'English';
+            }
+            $current_language = apply_filters('wpml_current_language', NULL);
+            if($language_code !== $current_language) {
+                return false;
+            }
             if($page_id === (int)$field_purchased_page) {
                 if ( has_term($private_gallery_post_tag, 'post_tag', $id) ||
                     has_term($bts_post_tag, 'post_tag', $id) ) {
