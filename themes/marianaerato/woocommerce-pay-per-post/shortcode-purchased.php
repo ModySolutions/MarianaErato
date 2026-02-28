@@ -26,10 +26,8 @@ $css_file->enqueue();
             $language_info = apply_filters('wpml_post_language_details', null, $id);
             if ($language_info) {
                 $language_code = $language_info['language_code'];
-                $display_name = $language_info['display_name'];
             } else {
                 $language_code = 'en';
-                $display_name = 'English';
             }
             $current_language = apply_filters('wpml_current_language', NULL);
             if($language_code !== $current_language) {

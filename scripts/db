@@ -66,7 +66,7 @@ if [[ "$COMMAND" == "pull" || "$COMMAND" == "download" ]]; then
   log_message "INFO" "mkdir -p ${LOCAL_PATH}"
   mkdir -p "$LOCAL_PATH"
 
-  DB_NAME="wp_db"
+  DB_NAME="me_db"
 
   log_message "INFO" "Pulling ${DB_NAME} database from ${REMOTE_HOST}"
   log_message "INFO" "rsync -avzP ${REMOTE_HOST}:${REMOTE_PATH}/${FILE_NAME} $LOCAL_PATH/"
@@ -109,6 +109,20 @@ else
 fi
 
 log_message "SUCCESS" "URL replaced successfully from ${SITE} to ${ENVIRONMENT_DOMAIN}"
+
+if bash ${ROOT_DIR}/scripts/wp @app plugin deactivate w3-total-cache; then
+  log_message "SUCCESS" "W3 Total Cache plugin deactivated successfully"
+else
+  log_message "DANGER" "There was an error deactivating W3 Total Cache plugin"
+  exit 1;
+fi
+
+if bash ${ROOT_DIR}/scripts/wp @app plugin activate query-monitor; then
+  log_message "SUCCESS" "Query Monitor plugin activated successfully"
+else
+  log_message "DANGER" "There was an error activating Query Monitor plugin"
+  exit 1;
+fi
 
 END_TIME_SECONDS=$(date +%s)
 END_TIME_HUMAN=$(date "+%Y-%m-%d %H:%M:%S")
