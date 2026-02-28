@@ -34,8 +34,8 @@ class Product {
         extract($this->_get_jewellery_tab());
         extract($this->_get_polaroid_tab());
         extract($this->_get_exclusive_piece_tab());
+        extract($this->_get_early_access_tab());
         extract($this->_get_links_tab());
-//        extract($this->_early_access_tab());
 
         acf_add_local_field_group(array(
             'key' => 'group_695283b19ba96',
@@ -991,6 +991,90 @@ class Product {
             'exclusive_piece_tab' => $exclusive_piece_tab,
             'exclusive_piece_item_field' => $exclusive_piece_item_field,
             'exclusive_piece_item_amount_field' => $exclusive_piece_item_amount_field,
+        );
+    }
+
+    private function _get_early_access_tab() : array {
+        $early_access_tab = array(
+            'key' => 'field_6952abdb584i49',
+            'label' => __('Early access', APP_THEME_DOMAIN),
+            'name' => '',
+            'aria-label' => '',
+            'type' => 'tab',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'placement' => 'left',
+            'endpoint' => 0,
+            'selected' => 0,
+        );
+        $early_access_field = array(
+            'key' => 'field_6989jfj478f3c2',
+            'label' => __('Status', APP_THEME_DOMAIN),
+            'name' => 'early_access_status',
+            'aria-label' => '',
+            'type' => 'radio',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'choices' => array(
+                'inactive' => __('Inactive', APP_THEME_DOMAIN),
+                'active' => __('Active', APP_THEME_DOMAIN),
+            ),
+            'default_value' => 'inactive',
+            'return_format' => 'value',
+            'allow_null' => 0,
+            'other_choice' => 0,
+            'allow_in_bindings' => 0,
+            'layout' => 'horizontal',
+            'save_other_choice' => 0,
+        );
+        $early_access_amount_field = array(
+            'key' => 'field_6952acpa93jmf90',
+            'label' => __('Time amount', APP_THEME_DOMAIN),
+            'name' => 'early_access_time_amount',
+            'aria-label' => '',
+            'type' => 'number',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => array(
+                array(
+                    array(
+                        'field' => 'field_6989jfj478f3c2',
+                        'operator' => '==',
+                        'value' => 'active',
+                    ),
+                ),
+            ),
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'default_value' => 48,
+            'min' => '1',
+            'max' => null,
+            'allow_in_bindings' => 0,
+            'placeholder' => '',
+            'step' => '',
+            'prepend' => '',
+            'append' => __('hour(s)', APP_THEME_DOMAIN),
+        );
+
+        return array(
+            'early_access_tab' => $early_access_tab,
+            'early_access_field' => $early_access_field,
+            'early_access_amount_field' => $early_access_amount_field,
         );
     }
 
