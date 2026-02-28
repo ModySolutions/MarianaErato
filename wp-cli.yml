@@ -1,4 +1,4 @@
 path: /var/www/html
 
 @app:
-  ssh: docker:www-data@wp_app
+  ssh: docker:www-data@me_app

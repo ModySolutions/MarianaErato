@@ -145,6 +145,10 @@ class WooCommerce {
             $this->{"set_bts_{$behind_the_video_status}_access"}($user_id, $fields, 'bts');
         }
 
+        if($early_access_status !== 'inactive') {
+            $this->set_early_access($user_id, $fields, 'early');
+        }
+
         $this->items = array_filter(array_unique($this->items));
 
         $this->create_order_for_products($user_id);
@@ -210,6 +214,11 @@ class WooCommerce {
         $content_until = strtotime("-$bts_amount_of_time months", $today);
         $posts = $this->_get_protected_post(-1, $bts_post_tag, null, $content_until);
         $this->_get_products_from_posts($posts);
+    }
+
+    public function set_early_access($user_id, $fields) : void {
+        extract($fields);
+        update_user_meta($user_id, 'me_early_access_to_blog_posts', $early_access_time_amount);
     }
 
     public function create_order_for_products(int $user_id) : void {

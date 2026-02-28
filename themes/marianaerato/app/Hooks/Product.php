@@ -3,17 +3,133 @@
 namespace App\Hooks;
 
 class Product {
-    public function init (): void {
+    private array $field_location;
+
+    public function __construct() {
+        $this->field_location = array(
+            array(
+                'param' => 'post_type',
+                'operator' => '==',
+                'value' => 'product',
+            ),
+        );
+    }
+
+    public function init(): void {
         add_action('acf/include_fields', [$this, 'register_sponsor_benefits_fields']);
-        add_action('acf/load_value/name=elementor_buy_now_button_url', [$this, 'acf_load_buy_now_button_url'], 10, 3);
-        add_action('acf/prepare_field/name=elementor_buy_now_button_url', [$this, 'acf_prepare_buy_now_button'], 10);
+        add_action('acf/include_fields', [$this, 'register_sidebar_fields']);
+        add_action('acf/load_value/name=link_buy_now_button_url', [$this, 'acf_load_buy_now_button_url'], 10, 3);
+        add_action('acf/prepare_field/name=link_buy_now_button_url', [$this, 'acf_prepare_buy_now_button'], 10);
     }
 
     public function register_sponsor_benefits_fields(): void {
-        if ( ! function_exists( 'acf_add_local_field_group' ) ) {
+        if (!function_exists('acf_add_local_field_group')) {
             return;
         }
 
+        extract($this->_get_current_content_tab());
+        extract($this->_get_private_gallery_tab());
+        extract($this->_get_behind_the_scenes_tab());
+        extract($this->_get_thank_you_message_tab());
+        extract($this->_get_jewellery_tab());
+        extract($this->_get_polaroid_tab());
+        extract($this->_get_exclusive_piece_tab());
+        extract($this->_get_links_tab());
+        extract($this->_early_access_tab());
+
+        acf_add_local_field_group(array(
+            'key' => 'group_695283b19ba96',
+            'title' => __('Sponsor Benefits', APP_THEME_DOMAIN),
+            'fields' => array(
+                $current_content_tab,
+                $type_of_access_field,
+                $select_content_field,
+                $previous_content_for_field,
+                $amount_of_videos_field,
+                $amount_of_galleries_field,
+                $private_gallery_tab,
+                $private_gallery_status_field,
+                $private_gallery_amount_of_gallery_pictures_field,
+                $behind_the_scenes_tab,
+                $behind_the_scenes_video_status_field,
+                $behind_the_scenes_videos_to_allow_field,
+                $behind_the_scenes_amount_of_months_back_field,
+                $thank_you_message_tab,
+                $thank_you_message_status_field,
+                $thank_you_message_subject_field,
+                $thank_you_message_content_field,
+                $thank_message_video_status_field,
+                $thank_you_message_thank_you_video_url,
+                $jewellery_tab,
+                $jewellery_status_field,
+                $jewellery_discount_percentage_field,
+                $jewellery_discount_amount_of_time_field,
+                $polaroid_tab,
+                $polaroid_status_field,
+                $polaroid_amount_field,
+                $exclusive_piece_tab,
+                $exclusive_piece_item_field,
+                $exclusive_piece_item_amount_field,
+                $early_access_tab,
+                $early_access_field,
+                $early_access_amount_field,
+                $links_tab,
+                $links_buy_now_button_url_field,
+            ),
+            'location' => array($this->field_location),
+            'menu_order' => 0,
+            'position' => 'normal',
+            'style' => 'default',
+            'label_placement' => 'left',
+            'instruction_placement' => 'label',
+            'hide_on_screen' => '',
+            'active' => true,
+            'description' => '',
+            'show_in_rest' => 0,
+        ));
+    }
+
+    public function register_sidebar_fields() : void {
+        if (!function_exists('acf_add_local_field_group')) {
+            return;
+        }
+        extract($this->_get_non_sponsors_vailable_date_field());
+        acf_add_local_field_group(array(
+            'key' => 'group_69a0c89b366bb',
+            'title' => __('Sponsors', APP_THEME_DOMAIN),
+            'fields' => array(
+                $non_sponsors_available_date_field,
+            ),
+            'location' => array($this->field_location),
+            'menu_order' => 0.5,
+            'position' => 'side',
+            'style' => 'default',
+            'label_placement' => 'top',
+            'instruction_placement' => 'label',
+            'hide_on_screen' => '',
+            'active' => true,
+            'description' => '',
+            'show_in_rest' => 0,
+            'display_title' => '',
+            'acfml_field_group_mode' => 'translation',
+        ));
+    }
+
+    public function acf_load_buy_now_button_url($value, $post_id, $field): string {
+        if (null === $post_id)
+            return '';
+        $product_id = str_replace('product_', '', $post_id);
+        $checkout_url =
+            apply_filters('wpml_permalink', wc_get_checkout_url(), apply_filters('wpml_current_language', null));
+        return $checkout_url.'?add-to-cart='.$product_id.'&quantity=1';
+    }
+
+    public function acf_prepare_buy_now_button($field): array {
+        $field['readonly'] = true;
+        return $field;
+    }
+
+    private function _get_current_content_tab(): array {
         $current_content_tab = array(
             'key' => 'field_695283b20bb3b',
             'label' => __('Current content', APP_THEME_DOMAIN),
@@ -32,7 +148,6 @@ class Product {
             'endpoint' => 0,
             'selected' => 0,
         );
-
         $type_of_access_field = array(
             'key' => 'field_695284320bb3c',
             'label' => __('Type of access', APP_THEME_DOMAIN),
@@ -62,7 +177,6 @@ class Product {
             'ajax' => 0,
             'placeholder' => '',
         );
-
         $select_content_field = array(
             'key' => 'field_695285e544dd8',
             'label' => __('Select content', APP_THEME_DOMAIN),
@@ -107,7 +221,6 @@ class Product {
             'save_custom' => 0,
             'custom_choice_button_text' => __('Add new option', APP_THEME_DOMAIN),
         );
-
         $previous_content_for_field = array(
             'key' => 'field_69528b0a5e41b',
             'label' => __('Previous content for', APP_THEME_DOMAIN),
@@ -139,7 +252,6 @@ class Product {
             'prepend' => '',
             'append' => __('month(s)', APP_THEME_DOMAIN),
         );
-
         $amount_of_videos_field = array(
             'key' => 'field_6952863e44dd9',
             'label' => __('Amount of videos', APP_THEME_DOMAIN),
@@ -176,7 +288,6 @@ class Product {
             'prepend' => '',
             'append' => __('video(s)', APP_THEME_DOMAIN),
         );
-
         $amount_of_galleries_field = array(
             'key' => 'field_6952867944ddb',
             'label' => __('Amount of galleries', APP_THEME_DOMAIN),
@@ -213,7 +324,17 @@ class Product {
             'prepend' => '',
             'append' => __('gallery/galleries', APP_THEME_DOMAIN),
         );
+        return array(
+            'current_content_tab' => $current_content_tab,
+            'type_of_access_field' => $type_of_access_field,
+            'select_content_field' => $select_content_field,
+            'previous_content_for_field' => $previous_content_for_field,
+            'amount_of_videos_field' => $amount_of_videos_field,
+            'amount_of_galleries_field' => $amount_of_galleries_field,
+        );
+    }
 
+    private function _get_private_gallery_tab() : array {
         $private_gallery_tab = array(
             'key' => 'field_6952882ea66e1',
             'label' => __('Private gallery', APP_THEME_DOMAIN),
@@ -232,7 +353,6 @@ class Product {
             'endpoint' => 0,
             'selected' => 0,
         );
-
         $private_gallery_status_field = array(
             'key' => 'field_69528a00bd2b3',
             'label' => __('Status', APP_THEME_DOMAIN),
@@ -259,7 +379,6 @@ class Product {
             'layout' => 'horizontal',
             'save_other_choice' => 0,
         );
-
         $private_gallery_amount_of_gallery_pictures_field = array(
             'key' => 'field_69528b435e41c',
             'label' => __('Amount of pictures', APP_THEME_DOMAIN),
@@ -291,39 +410,14 @@ class Product {
             'prepend' => '',
             'append' => __('gallery/galleries', APP_THEME_DOMAIN),
         );
-
-        $private_gallery_amount_of_months_back_field = array(
-            'key' => 'field_69528b4374ujf',
-            'label' => __('Amount of months back', APP_THEME_DOMAIN),
-            'name' => 'private_gallery_amount_of_time',
-            'aria-label' => '',
-            'type' => 'number',
-            'instructions' => '',
-            'required' => 0,
-            'conditional_logic' => array(
-                array(
-                    array(
-                        'field' => 'field_69528a00bd2b3',
-                        'operator' => '==',
-                        'value' => 'time',
-                    ),
-                ),
-            ),
-            'wrapper' => array(
-                'width' => '50',
-                'class' => '',
-                'id' => '',
-            ),
-            'default_value' => 1,
-            'min' => '',
-            'max' => '',
-            'allow_in_bindings' => 0,
-            'placeholder' => '',
-            'step' => 1,
-            'prepend' => '',
-            'append' => __('month(s)', APP_THEME_DOMAIN),
+        return array(
+            'private_gallery_tab' => $private_gallery_tab,
+            'private_gallery_status_field' => $private_gallery_status_field,
+            'private_gallery_amount_of_gallery_pictures_field' => $private_gallery_amount_of_gallery_pictures_field,
         );
+    }
 
+    private function _get_behind_the_scenes_tab() : array {
         $behind_the_scenes_tab = array(
             'key' => 'field_6952a642d1aa0',
             'label' => __('Behind the scenes', APP_THEME_DOMAIN),
@@ -342,7 +436,6 @@ class Product {
             'endpoint' => 0,
             'selected' => 0,
         );
-
         $behind_the_scenes_video_status_field = array(
             'key' => 'field_6952a750e5f37',
             'label' => __('Status', APP_THEME_DOMAIN),
@@ -370,7 +463,6 @@ class Product {
             'layout' => 'horizontal',
             'save_other_choice' => 0,
         );
-
         $behind_the_scenes_videos_to_allow_field = array(
             'key' => 'field_6952a7054905a',
             'label' => __('Videos to allow', APP_THEME_DOMAIN),
@@ -402,7 +494,6 @@ class Product {
             'prepend' => '',
             'append' => 'video(s)',
         );
-
         $behind_the_scenes_amount_of_months_back_field = array(
             'key' => 'field_6952a8i4k9905a',
             'label' => __('Amount of months back', APP_THEME_DOMAIN),
@@ -435,6 +526,15 @@ class Product {
             'append' => 'month(s)',
         );
 
+        return array(
+            'behind_the_scenes_tab' => $behind_the_scenes_tab,
+            'behind_the_scenes_video_status_field' => $behind_the_scenes_video_status_field,
+            'behind_the_scenes_videos_to_allow_field' => $behind_the_scenes_videos_to_allow_field,
+            'behind_the_scenes_amount_of_months_back_field' => $behind_the_scenes_amount_of_months_back_field,
+        );
+    }
+
+    private function _get_thank_you_message_tab() : array {
         $thank_you_message_tab = array(
             'key' => 'field_6952a937abc3b',
             'label' => __('Thank you message', APP_THEME_DOMAIN),
@@ -453,7 +553,6 @@ class Product {
             'endpoint' => 0,
             'selected' => 0,
         );
-
         $thank_you_message_status_field = array(
             'key' => 'field_6952a949abc3c',
             'label' => __('Status', APP_THEME_DOMAIN),
@@ -480,7 +579,6 @@ class Product {
             'layout' => 'horizontal',
             'save_other_choice' => 0,
         );
-
         $thank_you_message_subject_field = array(
             'key' => 'field_6952a9bcabc3e',
             'label' => __('Subject', APP_THEME_DOMAIN),
@@ -510,7 +608,6 @@ class Product {
             'prepend' => '',
             'append' => '',
         );
-
         $thank_you_message_content_field = array(
             'key' => 'field_6952a96dabc3d',
             'label' => __('Content', APP_THEME_DOMAIN),
@@ -540,7 +637,6 @@ class Product {
             'media_upload' => 1,
             'delay' => 0,
         );
-
         $thank_message_video_status_field = array(
             'key' => 'field_6952b32ec4b0e',
             'label' => __('Thank you video status', APP_THEME_DOMAIN),
@@ -575,7 +671,6 @@ class Product {
             'layout' => 'horizontal',
             'save_other_choice' => 0,
         );
-
         $thank_you_message_thank_you_video_url = array(
             'key' => 'field_6952b2f8c4b0d',
             'label' => __('Video', APP_THEME_DOMAIN),
@@ -606,6 +701,17 @@ class Product {
             'allow_in_bindings' => 1,
         );
 
+        return array(
+            'thank_you_message_tab' => $thank_you_message_tab,
+            'thank_you_message_status_field' => $thank_you_message_status_field,
+            'thank_you_message_subject_field' => $thank_you_message_subject_field,
+            'thank_you_message_content_field' => $thank_you_message_content_field,
+            'thank_message_video_status_field' => $thank_message_video_status_field,
+            'thank_you_message_thank_you_video_url' => $thank_you_message_thank_you_video_url,
+        );
+    }
+
+    private function _get_jewellery_tab() : array {
         $jewellery_tab = array(
             'key' => 'field_6952a9edabc3f',
             'label' => __('Jewellery / Session', APP_THEME_DOMAIN),
@@ -624,7 +730,6 @@ class Product {
             'endpoint' => 0,
             'selected' => 0,
         );
-
         $jewellery_status_field = array(
             'key' => 'field_6952aa0aabc40',
             'label' => __('Status', APP_THEME_DOMAIN),
@@ -651,7 +756,6 @@ class Product {
             'layout' => 'horizontal',
             'save_other_choice' => 0,
         );
-
         $jewellery_discount_percentage_field = array(
             'key' => 'field_6952aa1eabc41',
             'label' => __('Discount percentage', APP_THEME_DOMAIN),
@@ -683,7 +787,6 @@ class Product {
             'prepend' => '',
             'append' => '%',
         );
-
         $jewellery_discount_amount_of_time_field = array(
             'key' => 'field_6952aa65abc42',
             'label' => __('Discount amount of time', APP_THEME_DOMAIN),
@@ -715,7 +818,15 @@ class Product {
             'prepend' => '',
             'append' => __('month(s)', APP_THEME_DOMAIN),
         );
+        return array(
+            'jewellery_tab' => $jewellery_tab,
+            'jewellery_status_field' => $jewellery_status_field,
+            'jewellery_discount_percentage_field' => $jewellery_discount_percentage_field,
+            'jewellery_discount_amount_of_time_field' => $jewellery_discount_amount_of_time_field,
+        );
+    }
 
+    private function _get_polaroid_tab() : array {
         $polaroid_tab = array(
             'key' => 'field_6952abdb5f3a4',
             'label' => __('Polaroid', APP_THEME_DOMAIN),
@@ -734,7 +845,6 @@ class Product {
             'endpoint' => 0,
             'selected' => 0,
         );
-
         $polaroid_status_field = array(
             'key' => 'field_6952abea5f3a5',
             'label' => __('Status', APP_THEME_DOMAIN),
@@ -761,7 +871,6 @@ class Product {
             'layout' => 'horizontal',
             'save_other_choice' => 0,
         );
-
         $polaroid_amount_field = array(
             'key' => 'field_6952ac0c5f3a6',
             'label' => __('Amount', APP_THEME_DOMAIN),
@@ -794,6 +903,14 @@ class Product {
             'append' => __('polaroid(s)', APP_THEME_DOMAIN),
         );
 
+        return array(
+            'polaroid_tab' => $polaroid_tab,
+            'polaroid_status_field' => $polaroid_status_field,
+            'polaroid_amount_field' => $polaroid_amount_field,
+        );
+    }
+
+    private function _get_exclusive_piece_tab() : array {
         $exclusive_piece_tab = array(
             'key' => 'field_6952abdb5f3b2',
             'label' => __('Exclusive piece', APP_THEME_DOMAIN),
@@ -812,7 +929,6 @@ class Product {
             'endpoint' => 0,
             'selected' => 0,
         );
-
         $exclusive_piece_item_field = array(
             'key' => 'field_6952abea5f3c2',
             'label' => __('Item', APP_THEME_DOMAIN),
@@ -839,7 +955,6 @@ class Product {
             'layout' => 'horizontal',
             'save_other_choice' => 0,
         );
-
         $exclusive_piece_item_amount_field = array(
             'key' => 'field_6952ac0c5f33v1',
             'label' => __('Amount', APP_THEME_DOMAIN),
@@ -872,9 +987,17 @@ class Product {
             'append' => __('piece(s)', APP_THEME_DOMAIN),
         );
 
-        $elementor_tab = array(
+        return array(
+            'exclusive_piece_tab' => $exclusive_piece_tab,
+            'exclusive_piece_item_field' => $exclusive_piece_item_field,
+            'exclusive_piece_item_amount_field' => $exclusive_piece_item_amount_field,
+        );
+    }
+
+    private function _get_links_tab() : array {
+        $links_tab = array(
             'key' => 'field_6952abdb5f93h',
-            'label' => __('Elementor', APP_THEME_DOMAIN),
+            'label' => __('Links', APP_THEME_DOMAIN),
             'name' => '',
             'aria-label' => '',
             'type' => 'tab',
@@ -890,11 +1013,10 @@ class Product {
             'endpoint' => 0,
             'selected' => 0,
         );
-
-        $elementor_buy_now_button_url_field = array(
+        $links_buy_now_button_url_field = array(
             'key' => 'field_6952a9bcab9sio4',
             'label' => __('Buy now button URL', APP_THEME_DOMAIN),
-            'name' => 'elementor_buy_now_button_url',
+            'name' => 'link_buy_now_button_url',
             'aria-label' => '',
             'type' => 'text',
             'instructions' => '',
@@ -911,73 +1033,36 @@ class Product {
             'prepend' => '',
             'append' => '',
         );
-
-        acf_add_local_field_group( array(
-            'key' => 'group_695283b19ba96',
-            'title' => __('Sponsor Benefits', APP_THEME_DOMAIN),
-            'fields' => array(
-                $current_content_tab,
-                $type_of_access_field,
-                $select_content_field,
-                $previous_content_for_field,
-                $amount_of_videos_field,
-                $amount_of_galleries_field,
-                $private_gallery_tab,
-                $private_gallery_status_field,
-                $private_gallery_amount_of_gallery_pictures_field,
-                $behind_the_scenes_tab,
-                $behind_the_scenes_video_status_field,
-                $behind_the_scenes_videos_to_allow_field,
-                $behind_the_scenes_amount_of_months_back_field,
-                $thank_you_message_tab,
-                $thank_you_message_status_field,
-                $thank_you_message_subject_field,
-                $thank_you_message_content_field,
-                $thank_message_video_status_field,
-                $thank_you_message_thank_you_video_url,
-                $jewellery_tab,
-                $jewellery_status_field,
-                $jewellery_discount_percentage_field,
-                $jewellery_discount_amount_of_time_field,
-                $polaroid_tab,
-                $polaroid_status_field,
-                $polaroid_amount_field,
-                $exclusive_piece_tab,
-                $exclusive_piece_item_field,
-                $exclusive_piece_item_amount_field,
-                $elementor_tab,
-                $elementor_buy_now_button_url_field,
-            ),
-            'location' => array(
-                array(
-                    array(
-                        'param' => 'post_type',
-                        'operator' => '==',
-                        'value' => 'product',
-                    ),
-                ),
-            ),
-            'menu_order' => 0,
-            'position' => 'normal',
-            'style' => 'default',
-            'label_placement' => 'left',
-            'instruction_placement' => 'label',
-            'hide_on_screen' => '',
-            'active' => true,
-            'description' => '',
-            'show_in_rest' => 0,
-        ) );
+        return array(
+            'links_tab' => $links_tab,
+            'links_buy_now_button_url_field' => $links_buy_now_button_url_field,
+        );
     }
 
-    public function acf_load_buy_now_button_url($value, $post_id, $field): string {
-        if(null === $post_id) return '';
-        $product_id = str_replace('product_', '', $post_id);
-        $checkout_url = apply_filters('wpml_permalink', wc_get_checkout_url(), apply_filters('wpml_current_language', null));
-        return $checkout_url . '?add-to-cart=' . $product_id . '&quantity=1';
-    }
-
-    public function acf_prepare_buy_now_button($field) : array {
-        $field['readonly'] = true;
-        return $field;
+    private function _get_non_sponsors_vailable_date_field() : array {
+        $non_sponsors_available_date_field = array(
+            'key' => 'field_69a0c8930495ujo',
+            'label' => __('Non sponsors available date', APP_THEME_DOMAIN),
+            'name' => 'non_sponsors_available_date',
+            'aria-label' => '',
+            'type' => 'date_time_picker',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'wpml_cf_preferences' => 1,
+            'display_format' => 'F jS, Y H:i',
+            'return_format' => 'F jS, Y H:i',
+            'first_day' => 1,
+            'default_to_current_date' => 1,
+            'allow_in_bindings' => 0,
+        );
+        return array(
+            'non_sponsors_available_date_field' => $non_sponsors_available_date_field,
+        );
     }
 }
