@@ -35,7 +35,7 @@ class Product {
         extract($this->_get_polaroid_tab());
         extract($this->_get_exclusive_piece_tab());
         extract($this->_get_links_tab());
-        extract($this->_early_access_tab());
+//        extract($this->_early_access_tab());
 
         acf_add_local_field_group(array(
             'key' => 'group_695283b19ba96',
