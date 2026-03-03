@@ -44,6 +44,7 @@
         "wpackagist-plugin/woocommerce-payment-gateway-ccbill": "3.0.1",
         "wpackagist-plugin/woocommerce-pay-per-post": "3.2.31",
         "wpackagist-plugin/wordpress-seo": "26.7",
+        "wpackagist-plugin/wp-piwik": "1.0.31",
         "wpackagist-theme/hello-elementor": "3.4.5"
     },
     "require-dev": {
