@@ -44,7 +44,7 @@ ENV_FILE="${ROOT_DIR}/.env"
 if [ -f "$ENV_FILE" ]; then
     source $ENV_FILE
 fi
-FILE_NAME="db.backup.sql"
+FILE_NAME="me_db.sql"
 if [[ "$COMMAND" == "pull" || "$COMMAND" == "download" ]]; then
   log_message "INFO" "Downloading ${DB} database..."
   if [ "$ENVIRONMENT" == "local" ]; then
