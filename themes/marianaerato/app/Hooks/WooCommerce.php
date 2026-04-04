@@ -3,6 +3,7 @@
 namespace App\Hooks;
 
 use Automattic\WooCommerce\Enums\OrderStatus;
+use \App\Features\Template_Parser;
 
 class WooCommerce {
     use \App\Features\WooCommerce;
@@ -151,7 +152,8 @@ class WooCommerce {
 
         $this->items = array_filter(array_unique($this->items));
 
-        $this->create_order_for_products($user_id);
+        $this->process_thank_you_message($user_id, $product_id, $this->order?->get_id());
+//        $this->create_order_for_products($user_id);
     }
 
     public function set_content_access(int $user_id, array $fields): void {
@@ -219,6 +221,24 @@ class WooCommerce {
     public function set_early_access($user_id, $fields) : void {
         extract($fields);
         update_user_meta($user_id, 'me_early_access_to_blog_posts', $early_access_time_amount);
+    }
+
+    public function process_thank_you_message(int $user_id, int $product_id, ?int $order_id): void {
+        $status = get_field('thank_you_message_status', $product_id);
+
+        if ($status === 'enabled') {
+            $subject_raw = get_field('thank_you_message_subject', $product_id);
+            $content_raw = get_field('thank_you_message_content', $product_id);
+            $video_url   = get_field('thank_you_message_thank_you_video_url', $product_id);
+
+            $parser = new Template_Parser($order_id);
+
+            $subject = $parser->parse($subject_raw);
+            $content = $parser->parse($content_raw);
+
+            $current_user = get_userdata($user_id);
+            $this->send_email($current_user->user_email, $subject, $content);
+        }
     }
 
     public function create_order_for_products(int $user_id) : void {

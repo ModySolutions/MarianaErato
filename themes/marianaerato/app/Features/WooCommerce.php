@@ -14,4 +14,10 @@ trait WooCommerce
             'purchased' => time(),
         ], $post_url) : $post_url;
     }
+
+    public function send_email($to, $subject, $content): bool {
+        $mailer = WC()->mailer();
+        $wrapped_content = $mailer->wrap_message($subject, $content);
+        return $mailer->send($to, $subject, $wrapped_content);
+    }
 }
