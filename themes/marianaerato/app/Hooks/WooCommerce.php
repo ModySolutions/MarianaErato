@@ -3,10 +3,10 @@
 namespace App\Hooks;
 
 use Automattic\WooCommerce\Enums\OrderStatus;
-use \App\Features\Template_Parser;
 
 class WooCommerce {
     use \App\Features\WooCommerce;
+    use \App\Features\Template_Parser;
 
     var array $items;
     var ?\WC_Order $order;
@@ -153,7 +153,7 @@ class WooCommerce {
         $this->items = array_filter(array_unique($this->items));
 
         $this->process_thank_you_message($user_id, $product_id, $this->order?->get_id());
-//        $this->create_order_for_products($user_id);
+        $this->create_order_for_products($user_id);
     }
 
     public function set_content_access(int $user_id, array $fields): void {
@@ -231,10 +231,16 @@ class WooCommerce {
             $content_raw = get_field('thank_you_message_content', $product_id);
             $video_url   = get_field('thank_you_message_thank_you_video_url', $product_id);
 
-            $parser = new Template_Parser($order_id);
-
-            $subject = $parser->parse($subject_raw);
-            $content = $parser->parse($content_raw);
+            $user = get_userdata($user_id);
+            $data = array(
+                'first_name' => $user->first_name,
+                'last_name' => $user->last_name,
+                'product_name' => get_the_title($product_id),
+                'order_id' => $order_id,
+                'video_url' => $video_url,
+            );
+            $subject = $this->parse($subject_raw, $data);
+            $content = $this->parse($content_raw, $data);
 
             $current_user = get_userdata($user_id);
             $this->send_email($current_user->user_email, $subject, $content);
