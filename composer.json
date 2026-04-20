@@ -45,12 +45,12 @@
         "wpackagist-plugin/woocommerce-pay-per-post": "3.2.31",
         "wpackagist-plugin/wordpress-seo": "26.7",
         "wpackagist-plugin/wp-piwik": "1.0.31",
-        "wpackagist-theme/hello-elementor": "3.4.5"
+        "wpackagist-theme/hello-elementor": "3.4.5",
+        "wpackagist-plugin/wp-crontrol": "1.20.0"
     },
     "require-dev": {
         "laravel/pint": "^1.21",
         "wpackagist-plugin/query-monitor": "3.11.0",
-        "wpackagist-plugin/wp-crontrol": "1.20.0"
     },
     "autoload": {
         "psr-4": {

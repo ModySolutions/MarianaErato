@@ -13,7 +13,7 @@ $private_gallery_post_tag = get_field('private_gallery_post_tag', 'option');
 $bts_post_tag = get_field('bts_post_tag', 'option');
 $field_purchased_page = get_field('field_purchased_page', 'option', false);
 $field_exclusive_content_page = get_field('field_exclusive_content_page', 'option', false);
-$css_file = new Post($template_id);
+$css_file = new Post($template_id ?? null);
 $css_file->enqueue();
 ?>
 <div class="mm-purchased">
@@ -78,7 +78,7 @@ $css_file->enqueue();
           else:
               $product_template = get_field('pay_per_post_product_template', 'option');
               if ($product_template && did_action('elementor/loaded')) {
-                echo Plugin::instance()->frontend->get_builder_content_for_display($product_template);
+//                echo Plugin::instance()->frontend->get_builder_content_for_display($product_template);
               }?>
           <?php endif; ?>
       </div>
@@ -86,7 +86,7 @@ $css_file->enqueue();
     else:
         $product_template = get_field('pay_per_post_product_template', 'option');
         if ($product_template && did_action('elementor/loaded')) {
-            echo Plugin::instance()->frontend->get_builder_content_for_display($product_template);
+//            echo Plugin::instance()->frontend->get_builder_content_for_display($product_template);
         }?>
     <?php
     endif;
