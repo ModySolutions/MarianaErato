@@ -110,10 +110,10 @@ fi
 
 log_message "SUCCESS" "URL replaced successfully from ${SITE} to ${ENVIRONMENT_DOMAIN}"
 
-if bash ${ROOT_DIR}/scripts/wp @app plugin deactivate w3-total-cache; then
-  log_message "SUCCESS" "W3 Total Cache plugin deactivated successfully"
+if bash ${ROOT_DIR}/scripts/wp @app plugin deactivate w3-total-cache wordfence wordfence-activator; then
+  log_message "SUCCESS" "Cache and Security plugins deactivated successfully"
 else
-  log_message "DANGER" "There was an error deactivating W3 Total Cache plugin"
+  log_message "DANGER" "There was an error deactivating cache and security plugins"
   exit 1;
 fi
 
